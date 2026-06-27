@@ -1938,9 +1938,7 @@ def plot_well_defined_subset_median_residual(
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
-        description="Run the larger-sample AMIGA baseline analysis."
-    )
+    parser = argparse.ArgumentParser(description="Run the larger-sample AMIGA baseline analysis.")
     parser.add_argument(
         "--amiga-file",
         default=str(DATA_DIR / "isolated_galaxies_results.csv"),

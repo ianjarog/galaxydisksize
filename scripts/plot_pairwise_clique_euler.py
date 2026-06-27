@@ -5,10 +5,10 @@ recomputed with the HCG upper limits included.
 
 Pairwise significance (BH-FDR at alpha=0.05): HCG-vs-survey comparisons use the
 Gehan generalised Wilcoxon test (HCG is left-censored by the 70 beam upper
-limits); all other pairs keep the Mann-Whitney U values. 
+limits); all other pairs keep the Mann-Whitney U values.
 The resulting maximal cliques are:
 
-    {HCGs, VIVA}                              <- most truncated 
+    {HCGs, VIVA}                              <- most truncated
     {Hydra I (cluster), Ursa Major}
     {Hydra I (infall), Hydra I (field), Ursa Major}   (Ursa Major bridges)
     {AMIGA}            {Pairs (Bok+20)}       <- least truncated (now separate)
