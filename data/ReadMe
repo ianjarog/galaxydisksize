@@ -1,0 +1,221 @@
+J/A+A/609/A17       AMIGA XIII. HI properties                     (Jones+, 2018)
+================================================================================
+The AMIGA sample of isolated galaxies.
+XIII. The HI content of an almost "nurture free" sample.
+    Jones M.G., Espada D., Verdes-Montenegro L., Huchtmeier W.K., Lisenfeld U.,
+    Leon S., Sulentic J., Sabater J., Jones D.E., Sanchez S., Garrido J.
+    <Astron. Astrophys. 609, A17 (2018)>
+    =2018A&A...609A..17J        (SIMBAD/NED BibCode)
+================================================================================
+ADC_Keywords: Galaxy catalogs ; Galaxies, spectra ; H I data ; Radio lines ;
+              Radial velocities ; Redshifts ; Galaxies, nearby
+Keywords: galaxies: evolution - galaxies: interactions - radio lines: ISM -
+          surveys
+
+Abstract:
+    We present the largest catalogue of HI single dish observations of
+    isolated galaxies to date, as part of the multi-wavelength compilation
+    being performed by the AMIGA project (Analysis of the interstellar
+    Medium in Isolated GAlaxies). Despite numerous studies of the HI
+    content of galaxies, no revision has been made for the most isolated
+    L* galaxies since Haynes & Giovanelli (1984AJ.....89..758H).
+
+    The AMIGA sample has been demonstrated to be almost "nurture free",
+    therefore, by creating scaling relations for the HI content of these
+    galaxies we will define a metric of HI normalcy in the absence of
+    interactions.
+
+    The catalogue comprises of our own HI observations with Arecibo,
+    Effelsberg, Nancay and GBT, and spectra collected from the literature.
+    In total we have measurements or constraints on the HI masses of 844
+    galaxies from the Catalogue of Isolated Galaxies (CIG). The
+    multi-wavelength AMIGA dataset includes a revision of the B-band
+    luminosities, optical diameters, morphologies, and isolation. Due to
+    the large size of the catalogue, these revisions permit cuts to be
+    made to ensure isolation and a high level of completeness, which was
+    not previously possible. With this refined dataset we fit HI scaling
+    relations based on luminosity, optical diameter and morphology. Our
+    regression model incorporates all the data, including upper limits,
+    and accounts for uncertainties in both variables, as well as distance
+    uncertainties.
+
+    The HI scaling relations of the AMIGA sample define an up-to-date
+    metric of the HI content of almost "nurture free" galaxies. These
+    relations allow the expected HI mass, in the absence of interactions,
+    of an individual galaxy to be predicted to within 0.25dex (for
+    typical measurement uncertainties). These relations are thus suitable
+    for use as statistical measures of the impact of interactions on the
+    neutral gas content of galaxies.
+
+Description:
+    We present our compilation of global HI properties of CIG galaxies
+    from single dish 21cm observations. The data are approximately 50%
+    our own observations and 50% data from the literature, as indicated in
+    the tables themselves. All spectra were re-processed to produce a data
+    set that is as uniform as possible. The data (including literature
+    data) were collected with Arecibo, Effelsberg, Jodrell Bank, Nancay,
+    Parkes, and various Green Bank telescopes.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName      Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe            80        .   This file
+tableb1.dat      124      844   The observed HI properties of CIG galaxies
+tableb2.dat       49      844   Derived HI properties of CIG galaxies
+tableb3.dat       29      844   Flags
+--------------------------------------------------------------------------------
+
+See also:
+        VII/82  : Catalogue of Isolated Galaxies (Karachentseva+ 1986)
+ J/A+A/411/391  : AMIGA project. Revised positions for CIG galaxies (Leon+ 2003)
+ J/A+A/449/937  : AMIGA II. Morphological refinement (Sulentic+, 2006)
+ J/A+A/462/507  : AMIGA III. IRAS data (Lisenfeld+, 2007)
+ J/A+A/470/505  : AMIGA IV. Neighbours around CIG galaxies (Verley+, 2007)
+ J/A+A/472/121  : AMIGA V. Isolation parameters (Verley+, 2007)
+ J/A+A/485/475  : AMIGA VI. Radio fluxes of the isolated galaxies (Leon+ 2008)
+ J/A+A/486/73   : AMIGA VII. FIR and radio study (Sabater+, 2008)
+ J/A+A/532/A117 : AMIGA VIII. Flux ratio asymmetry parameter (Espada+, 2011)
+ J/A+A/534/A102 : AMIGA IX. Molecular gas properties (Lisenfeld+, 2011)
+ J/A+A/540/A47  : AMIGA X. Isolated galaxy colors (Fernandez Lorenzo+, 2012)
+ J/A+A/545/A15  : AMIGA XI. Optical nuclear activity (Sabater+, 2012)
+ J/A+A/560/A9   : AMIGA XII. Revision of isolation (Argudo-Fernandez+, 2013)
+
+Byte-by-byte Description of file: tableb1.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label     Explanations
+--------------------------------------------------------------------------------
+   1-  4  I4    ---       CIG       [1-1051] CIG (VII/82), <K73 NNNN> in Simbad
+   6- 10  F5.1  mJy       Speak     ? Peak 21cm flux density
+  12- 15  F4.1  mJy       rms       Root mean squared noise of spectrum
+  17- 20  F4.1  mJy       rms10     Root mean squared noise scaled to 10km/s
+                                      channels
+  22- 25  F4.1  km/s      dv        Spectral channel width
+  27- 28  I2    ---       Nsmo     ? Number of channels smoothed over
+  30- 34  F5.1  ---       snrp     ? Peak signal-to-noise ratio
+  36- 40  F5.1  ---       snri     ? Integrated signal-to-noise ratio
+  42- 47  F6.2  Jy.km/s   Sint     ? Integrated 21cm flux
+  49- 52  F4.2  Jy.km/s e_Sint     ? Random error in integrated 21cm flux
+  54- 57  F4.2  ---       cbeam    ? Estimated beam correction factor
+  59- 64  F6.2  Jy.km/s   Sintc    ? Corrected integrated 21cm flux
+  66- 72  F7.1  km/s      V50      ? Heliocentric velocity measured at 50% level
+  74- 78  F5.1  km/s    e_V50      ? Error in heliocentric velocity
+  80- 83  F4.2  ---       z50      ? Heliocentric redshift
+  85- 89  F5.1  km/s      W50      ? Velocity width measured at 50% level
+  91- 95  F5.1  km/s    e_W50      ? Error in velocity width
+  97-100  F4.1  km/s      cinst    ? Estimated instrumental broadening
+ 102-105  F4.2  ---       ccosmo   ? Inverse cosmological broadening factor
+ 107-111  F5.1  km/s      W50c     ? Corrected velocity width
+     113  I1    ---       Det      [0/2]? Detection code (1)
+     115  I1    ---       Qual     [0/1]? Spectrum quality code  (2)
+ 117-119  A3    ---       Tel      Telescope code of observation
+ 121-124  A4    ---       Ref      ? Reference code of spectrum (If blank the
+                                    observation was performed by AMIGA team) (3)
+--------------------------------------------------------------------------------
+Note (1): Detection code as follows:
+   0 = detection
+   1 = non-detections
+   2 = marginal
+Note (2): Spectrum quality code as follows:
+   0 = OK
+   1 = Caution (see tableb3.dat)
+Note (3): Reference code of spectrum as follows:
+   BC81 = Balkowski & Chamaraux (1981A&A....97..223B)
+   Bi86 = Bicay & Giovanelli (1986AJ.....91..705B)
+   Bo85 = Bothun et al. (1985AJ.....90.2487B)
+   Co09 = Courtois et al. (2009, Cat. J/AJ/138/1938)
+   HG80 = Haynes & Giovanelli (1980ApJ...240L..87H)
+   HG84 = Haynes & Giovanelli (1984AJ.....89..758H)
+   HG91 = Haynes & Giovanelli (1991ApJS...77..331H)
+   Ha11 = Haynes et al. (2011, Cat. J/AJ/142/170)
+   He83 = Hewitt et al. (1983AJ.....88..272H)
+   Hu95 = Huchtmeier et al. (1995A&A...300..675H)
+   KLUN = Kinematics of the Local Universe, long term project with the data
+           compiled in many papers (Bottinelli et al. 1992A&AS...93..173B,
+           1993, Cat. J/A+AS/102/57; Theureau et al. 1998, Cat. J/A+AS/130/333,
+           2005, Cat. J/A+A/430/373, 2007, Cat. J/A+A/465/71)
+   Le83 = Lewis et al. (1983AJ.....88.1695L)
+   Le85 = Lewis et al. (1985ApJS...59..161L)
+   Lu93 = Lu et al. (1993ApJS...88..383L)
+   MS88 = Mirabel & Sanders (1988ApJ...335..104M)
+   Ma14 = Masters et al. (2014, Cat. J/MNRAS/443/1044)
+   Me04 = Meyer et al. (2004MNRAS.350.1195M, Cat. VIII/73)
+   RH87 = Richter & Huchtmeier (1987A&AS...68..427R)
+   Ru76 = Rubin et al. (1976AJ.....81..687R)
+   SD87 = Staveley-Smith & Davies (1987MNRAS.224..953S)
+   Sc92 = Schneider et al. (1992, Cat. J/ApJS/81/5)
+   Sp05 = Springob et al. (2005ApJS..160..149S, Cat. VIII/77)
+   TC88 = Tifft & Cocke (1988ApJS...67....1T)
+   Th05 = Theureau et al. (2005, Cat. J/A+A/430/373)
+   Th98 = Theureau et al. (1998, Cat. J/A+AS/130/333)
+   vD95 = van Driel et al. (1995ApJ...444...80V)
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: tableb2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units     Label     Explanations
+--------------------------------------------------------------------------------
+   1-  4  I4    ---       CIG       [1-1051] CIG (VII/82), <K73 NNNN> in Simbad
+   6- 10  I5    km/s      HRV       Heliocentric velocity
+  12- 16  I5    km/s      Vmod      Recession velocity corrected with Mould+2000
+                                     flow model
+  18- 22  F5.1  Mpc       Dmod      Distance = Vmod/70 (we assume h_70_=1)
+  24- 26  F3.1  Mpc     e_Dmod      Error in distance (including H0 uncertainty)
+  28- 32  F5.2  [Msun]    log(MHI)  ? log(HI mass)  (we assume h_70_=1)
+  34- 37  F4.2  [Msun]  e_log(MHI)  ? Error in log(HI mass)
+  39- 41  I3    km/s      WTFR      Velocity width estimated from Tully-Fisher
+                                    relation of Torres-Flores+2010
+  43- 47  F5.2  [Msun]    log(MHI)l 5-sigma limit on log(HI mass)
+      49  I1    ---     l_log(MHI)  [0/1] Limit code  (1)
+--------------------------------------------------------------------------------
+Note (1): Limit code as follows:
+   1 = log(MHI)l should be used
+   0 = log(MHI) value should be used
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: tableb3.dat
+--------------------------------------------------------------------------------
+  Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+  2-  5  I4    ---     CIG       [1-1051] CIG (VII/82), <K73 NNNN> in Simbad
+      8  A1    ---     Iso       [0/1] Isolation flag (1)
+     11  A1    ---     Comp      [0/1] Completeness flag (2)
+     14  I1    ---     Interp    [0/1]? Interpolation flag (3)
+     17  I1    ---     Singpeak  [0/1]? Single peak flag (4)
+     20  I1    ---     Midpeak   [0/1]? Middle peak flag (5)
+     23  I1    ---     Offspike  [0/1]? Offset spike flag (6)
+     26  I1    ---     Radvel    [0/1]? Radio velocity flag (7)
+     29  I1    ---     Digit     [0/1]? Digitisation flag (8)
+--------------------------------------------------------------------------------
+Note (1): Isolation flag as follows:
+  0 = isolated
+  1 = not isolated
+Note (2): Completeness flag as follows:
+  0 = in complete sample
+  1 = not in complete sample
+Note (3): Interpolation flag as follows:
+  0 = spectrum  fit without interpolating
+  1 = spectrum interpolated during fit
+Note (4): Single peak flag as follows:
+  0 = profile is double horned
+  1 = profile has single peak
+Note (5): Middle peak flag as follows:
+  0 = profile max is in one of the horns
+  1 = profile max occurs between the two horns
+Note (6): Offset spike flag as follows:
+  0 = normal spectral profile
+  1 = (noise) spike near profile
+Note (7): Radio velocity flag as follows:
+  0 = no correction
+  1 = original spectrum was deemed to be recorded in radio velocity and was
+       corrected
+Note (8): Digitisation flag as follows:
+  0 = digital spectrum used
+  1 = no digital spectrum was available and a spectrum image was digitised
+--------------------------------------------------------------------------------
+
+Acknowledgements:
+    Michael Jones, mjones(at)iaa.es
+
+================================================================================
+(End)                                        Patricia Vannier [CDS]  01-Dec-2017

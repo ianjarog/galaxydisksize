@@ -1,0 +1,22 @@
+# SoFiA source catalogue
+# Creator: SoFiA 2.4.1 (23-Mar-2022)
+# Time:    Fri, 22 Aug 2025, 08:24:34
+#
+# Note that the plain-text catalogue is solely intended for
+# visual inspection and should not be used for quantitative
+# analysis due to limited precision and the lack of Unified
+# Content Descriptors.  The XML catalogue should instead be
+# imported into Python or VO-compatible software to analyse
+# the source parameters measured by SoFiA, e.g. through the
+# astropy.io.votable module of Astropy.
+#
+# Header rows:
+#   1 = column number
+#   2 = parameter name
+#   3 = parameter unit
+#
+#                           1             2             3             4             5             6             7             8             9            10            11            12            13            14            15            16            17            18            19            20            21            22            23            24            25            26            27            28            29            30            31            32            33            34            35            36            37            38            39            40            41            42            43            44            45            46
+#                        name            id             x             y             z         x_min         x_max         y_min         y_max         z_min         z_max         n_pix         f_min         f_max         f_sum           rel          flag          fill          mean           std          skew          kurt           rms           w20           w50          wm50       ell_maj       ell_min        ell_pa     ell3s_maj     ell3s_min      ell3s_pa        kin_pa         err_x         err_y         err_z     err_f_sum            ra           dec         v_opt        x_peak        y_peak        z_peak       ra_peak      dec_peak    v_opt_peak
+#                           -             -           pix           pix           pix           pix           pix           pix           pix           pix           pix             -          W.U.          W.U.          W.U.             -             -             -          W.U.          W.U.             -             -          W.U.           pix           pix           pix           pix           pix           deg           pix           pix           deg           deg           pix           pix           pix          W.U.           deg           deg           m/s           pix           pix           pix           deg           deg           m/s
+
+  "SoFiA B053207.39+771658.6"             1    255.542139    255.864212     29.316495           245           265           251           261            13            44           738     -0.135923      4.171988    825.865453      0.000000             0      0.099838      3.192423      1.795958      0.702585      0.696743      0.354911     30.933256     29.760385     30.933764     10.392608      1.972214     65.969900     12.184819      2.367796     65.317227    245.781992      0.054452      0.027043      0.116676      9.641572     83.030777     77.282953   4.10566e+06           258           255            42     82.999772     77.280551   4.32072e+06

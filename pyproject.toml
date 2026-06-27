@@ -1,0 +1,100 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "galaxydisksize"
+version = "0.1.0"
+description = "Tools for measuring and modelling the atomic-hydrogen disc size of galaxies and its truncation in dense environments."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Roger Ianjamasimanana", email = "ianjamasimanana@gmail.com" },
+]
+keywords = [
+    "astronomy",
+    "radio astronomy",
+    "neutral hydrogen",
+    "galaxy evolution",
+    "Hickson compact groups",
+    "size-mass relation",
+    "survival analysis",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Astronomy",
+]
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "pandas>=2.0",
+    "astropy>=5.3",
+    "matplotlib>=3.7",
+    "emcee>=3.1",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+# Corner plots for the posterior of the size-mass fit.
+plots = ["corner>=2.2"]
+# Per-galaxy postage-stamp figures pull cutouts from external image servers.
+cutouts = ["aplpy>=2.1", "reproject>=0.10", "astroquery>=0.4", "legacystamps>=0.1"]
+# Workflow orchestration.
+workflow = ["snakemake>=8.0"]
+dev = ["pytest>=7.4", "pytest-cov>=4.1", "ruff>=0.4"]
+
+[project.urls]
+Homepage = "https://github.com/ianjarog/galaxydisksize"
+Repository = "https://github.com/ianjarog/galaxydisksize"
+Issues = "https://github.com/ianjarog/galaxydisksize/issues"
+
+[project.scripts]
+# Small command-line front-ends to the reusable library (see src/galaxydisksize/cli.py).
+galaxydisksize = "galaxydisksize.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/galaxydisksize"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src"]
+
+[tool.ruff.lint]
+# pycodestyle, pyflakes, isort, pyupgrade, numpy-specific, and docstring checks.
+select = ["E", "F", "I", "UP", "NPY", "D"]
+# D105/D107: dunder/__init__ docstrings optional. D403: allow lowercase proper
+# nouns ("linmix", "arcsec") to start a docstring.
+ignore = ["D105", "D107", "D403"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.ruff.lint.per-file-ignores]
+# Tests do not require module/function docstrings.
+"tests/*" = ["D100", "D103"]
+# scripts/ are thin command-line front-ends and analysis drivers, not the public
+# library API (that is src/galaxydisksize/, which stays fully documented and is
+# held to the complete rule set including numpydoc "D"). The scripts are held to
+# every *code* rule (E/F/I/UP), so dead code, unused names, and import problems
+# still fail; only the docstring-*style* rules (D) are relaxed, since enforcing
+# numpydoc sections on every internal driver helper is more than application code
+# warrants. NPY002: the seeded legacy NumPy RNG is kept deliberately so the
+# published Monte-Carlo numbers reproduce bit-for-bit (migrating to Generator
+# would change the random stream). E402: a few scripts adjust sys.path before
+# importing sibling modules. E501: `ruff format` already wraps all code to the
+# line length; the only lines left over are long, unsplittable string literals
+# (LaTeX table/caption emitters, log messages) where a line break would change
+# the emitted text -- the library (src/) is still held to the strict line length.
+"scripts/*" = ["D", "NPY002", "E402", "E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

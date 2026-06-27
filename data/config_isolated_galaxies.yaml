@@ -1,0 +1,279 @@
+# Configuration file for isolated galaxies (CIG sample)
+# Each entry contains observational parameters for HI analysis
+
+# Galaxies with wrong noise units (need division by 1000 to convert to Jy/beam)
+median_noise_wrong_unit:
+  - CIG102
+  - CIG147
+  - CIG159
+  - CIG232
+  - CIG314
+  - CIG604
+
+samples:
+  # CIG85 excluded: insufficient data
+  # CIG85:
+  #   size: 190
+  #   BMAJ: 22.6
+  #   BMIN: 18.8
+  #   telescope: GMRT
+
+  CIG96:
+    size: 100
+    BMAJ: 16.8
+    BMIN: 15.6
+    telescope: VLA
+    cubename: CIG96CD-CHI.FITS
+
+  CIG102:
+    size: 230
+    BMAJ: 29.546
+    BMIN: 24.51
+    telescope: WSRT
+    cubename: CIG102.FITS
+
+  CIG103:
+    size: 100
+    BMAJ: 52.9
+    BMIN: 45.5
+    telescope: VLA
+    cubename: CIG103_CLEAN.FITS
+
+  CIG123:
+    size: 210
+    BMAJ: 17.6
+    BMIN: 15.7
+    telescope: VLA
+    cubename: CIG123_CD-smaller.fits
+
+  # CIG134 excluded: not enough points for fitting
+  # CIG134:
+  #   size: 240
+  #   BMAJ: 68.1
+  #   BMIN: 52.5
+  #   telescope: VLA
+
+  CIG147:
+    size: 230
+    BMAJ: 33.1
+    BMIN: 23.5
+    telescope: WSRT
+    cubename: CIG147.FITS
+
+  CIG159:
+    size: 240
+    BMAJ: 29.7
+    BMIN: 23.0
+    telescope: WSRT
+    cubename: CIG0159_30.FITS
+
+  CIG188:
+    size: 210
+    BMAJ: 43.1
+    BMIN: 36.6
+    telescope: GMRT
+    cubename: CIG188-LR-CUBE.FITS
+
+  CIG232:
+    size: 240
+    BMAJ: 32.9
+    BMIN: 19.6
+    telescope: WSRT
+    cubename: CIG0232_30.FITS
+
+  CIG240:
+    size: 240
+    BMAJ: 62.1
+    BMIN: 54.4
+    telescope: VLA
+    cubename: CIG240_D.FITS
+
+  CIG292:
+    size: 290
+    BMAJ: 46.6
+    BMIN: 42.1
+    telescope: VLA
+    cubename: CIG292.FITS
+
+  CIG314:
+    size: 230
+    BMAJ: 28.0
+    BMIN: 27.7
+    telescope: WSRT
+    cubename: CIG0314_30.FITS
+
+  CIG329:
+    size: 190
+    BMAJ: 13.9
+    BMIN: 13.5
+    telescope: VLA
+    cubename: CIG329.FITS
+
+  CIG359:
+    size: 110
+    BMAJ: 65.9
+    BMIN: 60.8
+    telescope: VLA
+    cubename: cCIG359.FITS
+
+  CIG361:
+    size: 200
+    BMAJ: 16.3
+    BMIN: 13.5
+    BPA: -87.09
+    telescope: VLA
+    cubename: CIG361.FITS
+
+  CIG421:
+    size: 240
+    BMAJ: 56.3
+    BMIN: 50.0
+    telescope: VLA
+    cubename: CIG421-ROB0.ICLN.FITS
+
+  CIG463:
+    size: 235
+    BMAJ: 45.6
+    BMIN: 42.5
+    telescope: VLA
+    cubename: CIG463-ROB0.ICLN.FITS
+
+  CIG512:
+    size: 210
+    BMAJ: 17.3
+    BMIN: 13.3
+    telescope: GMRT
+    cubename: CIG512-HRES-CUBE.FITS
+
+  CIG551:
+    size: 230
+    BMAJ: 47.6
+    BMIN: 43.1
+    telescope: VLA
+    cubename: CIG551-ROB0.ICLN.FITS
+
+  CIG553:
+    size: 0
+    BMAJ: 25.2843
+    BMIN: 12.8072
+    telescope: Apertif
+    cubename: CIG553.FITS
+
+  CIG571:
+    size: 100
+    BMAJ: 67.2
+    BMIN: 52.3
+    telescope: VLA
+    cubename: CIG571.FITS
+
+  CIG581:
+    size: 0
+    BMAJ: 30.8521
+    BMIN: 14.5549
+    telescope: Apertif
+    cubename: CIG581.FITS
+
+  CIG587:
+    size: 0
+    BMAJ: 25.1328
+    BMIN: 17.9276
+    telescope: Apertif
+    cubename: CIG587.FITS
+
+  CIG604:
+    size: 230
+    BMAJ: 33.2
+    BMIN: 28.7
+    telescope: WSRT
+    cubename: CIG604.FITS
+
+  # CIG616 excluded: strange moment 0 maps
+  # CIG616:
+  #   size: 0
+  #   BMAJ: 64.5
+  #   BMIN: 58.1
+  #   telescope: VLA
+
+  CIG626:
+    size: 210
+    BMAJ: 30
+    BMIN: 30
+    telescope: GMRT
+    cubename: CIG626.FITS
+
+  CIG660:
+    size: 110
+    BMAJ: 58.8
+    BMIN: 46.3
+    telescope: VLA
+    cubename: CIG660_D.FITS
+
+  CIG676:
+    size: 0
+    BMAJ: 17.3134
+    BMIN: 13.1591
+    telescope: Apertif
+    cubename: CIG676.FITS
+
+  CIG736:
+    size: 230
+    BMAJ: 58.0
+    BMIN: 52.2
+    telescope: VLA
+    cubename: CIG736_D.FITS
+
+  CIG744:
+    size: 240
+    BMAJ: 67.2
+    BMIN: 55.7
+    telescope: VLA
+    cubename: CIG744_D.FITS
+
+  CIG812:
+    size: 200
+    BMAJ: 53.6652
+    BMIN: 46.5264
+    telescope: VLA
+    cubename: CIG812-ROB0.ICLN.FITS
+
+  CIG983:
+    size: 0
+    BMAJ: 24.5126
+    BMIN: 13.6563
+    telescope: Apertif
+    cubename: CIG983.FITS
+
+  CIG988:
+    size: 0
+    BMAJ: 29.7389
+    BMIN: 13.4232
+    telescope: Apertif
+    cubename: CIG988.FITS
+
+  CIG1000:
+    size: 0
+    BMAJ: 23.512
+    BMIN: 13.5134
+    telescope: Apertif
+    cubename: CIG1000.FITS
+
+  CIG1004:
+    size: 210
+    BMAJ: 130.0
+    BMIN: 48.9
+    telescope: VLA
+    cubename: CIG1004-smaller.fits
+
+  CIG1006:
+    size: 0
+    BMAJ: 24.9848
+    BMIN: 14.0589
+    telescope: Apertif
+    cubename: CIG1006.FITS
+
+  CIG1019:
+    size: 230
+    BMAJ: 56.4
+    BMIN: 47.86
+    telescope: VLA
+    cubename: CIG1019.FITS

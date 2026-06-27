@@ -1,0 +1,24 @@
+# SoFiA source catalogue
+# Creator: SoFiA 2.4.1 (23-Mar-2022)
+# Time:    Fri, 22 Aug 2025, 08:45:53
+#
+# Note that the plain-text catalogue is solely intended for
+# visual inspection and should not be used for quantitative
+# analysis due to limited precision and the lack of Unified
+# Content Descriptors.  The XML catalogue should instead be
+# imported into Python or VO-compatible software to analyse
+# the source parameters measured by SoFiA, e.g. through the
+# astropy.io.votable module of Astropy.
+#
+# Header rows:
+#   1 = column number
+#   2 = parameter name
+#   3 = parameter unit
+#
+#                           1             2             3             4             5             6             7             8             9            10            11            12            13            14            15            16            17            18            19            20            21            22            23            24            25            26            27            28            29            30            31            32            33            34            35            36            37            38            39            40            41            42            43            44            45            46
+#                        name            id             x             y             z         x_min         x_max         y_min         y_max         z_min         z_max         n_pix         f_min         f_max         f_sum           rel          flag          fill          mean           std          skew          kurt           rms           w20           w50          wm50       ell_maj       ell_min        ell_pa     ell3s_maj     ell3s_min      ell3s_pa        kin_pa         err_x         err_y         err_z     err_f_sum            ra           dec         v_opt        x_peak        y_peak        z_peak       ra_peak      dec_peak    v_opt_peak
+#                           -             -           pix           pix           pix           pix           pix           pix           pix           pix           pix             -       Jy/beam       Jy/beam       Jy/beam             -             -             -       JY/BEAM       JY/BEAM             -             -       Jy/beam           pix           pix           pix           pix           pix           deg           pix           pix           deg           deg           pix           pix           pix       Jy/beam           deg           deg           m/s           pix           pix           pix           deg           deg           m/s
+
+  "SoFiA J130525.05+561920.6"             1    126.874541    128.161481      6.370438           114           138           113           140             1            12          1776  -3.44493e-05      0.027175     13.969022      0.000000             0      0.211429      9.590055      7.343686      1.633939      2.860711      0.001325     11.000000     10.632910     10.942706     11.081490      6.693374    -40.429783     14.407086      8.572252    -42.106190    135.307163      0.018441      0.021693      0.013542      0.055845    196.354378     56.322393   2.54476e+06           127           129            11    196.353750     56.324722   2.44774e+06
+  "SoFiA J130659.61+563531.1"             2     48.776382    225.430284      6.687768            45            51           219           232             5             9            74      0.001540      0.004189      0.218243      0.000000             0      0.151020      4.750973      1.447341     -0.274549     -0.765659      0.002033      2.751603      2.013794      2.587958      7.952812      2.729835      9.747826      0.000000      0.000000      0.000000     -1.000000      0.123114      0.298611      0.057968      0.017488    196.748393     56.591962   2.53811e+06            49           223             7    196.747195     56.585215   2.53157e+06
+  "SoFiA J130310.18+562152.2"             3    238.930219    143.777486      4.897133           236           241           142           146             3             7            53  -1.97305e-04      0.003239      0.078946      0.000000             0      0.353333      1.854694      1.043855     -0.081374     -0.765316      0.001970      4.000000      2.429267      3.974718      2.264528      1.655777     62.193601      0.000000      0.000000      0.000000     -1.000000      0.207463      0.175241      0.209128      0.014342    195.792425     56.364503   2.57565e+06           239           144             5    195.792066     56.365120   2.57349e+06

@@ -1,0 +1,39 @@
+name: Bug report
+description: Report something that is broken or behaving unexpectedly.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. Please do **not** paste credentials, tokens, or private data.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the problem and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Commands run (e.g. the Snakemake target or the Python call) and the inputs used.
+      placeholder: |
+        1. conda activate galaxydisksize
+        2. snakemake --cores 4 ...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error output / traceback
+      render: shell
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Python version, install method (conda/pip), and package version.
+      placeholder: "Ubuntu 22.04, Python 3.12, conda env, galaxydisksize 0.1.0"
+    validations:
+      required: true

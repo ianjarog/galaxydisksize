@@ -1,0 +1,19 @@
+# Workflow configuration for galaxydisksize.
+#
+# Paths are relative to the repository root, which is the working directory from
+# which Snakemake is invoked (`snakemake --use-conda paper`).
+
+# Python interpreter used to run the analysis scripts. Override on the command
+# line with `--config python=...` if you are not using the conda environment.
+python: "python"
+
+# The manuscript that the `paper` rule compiles.
+manuscript: "latex/hi_disk_size_environments.tex"
+
+# Measured per-galaxy tables that seed the statistics tier. These are committed
+# to the repository (they are the output of the radio/catalogue tier, which is
+# documented in workflow/rules/catalogue.smk and requires the Zenodo cubes).
+measurements:
+  isolated: "data/isolated_galaxies_results.csv"
+  interacting: "data/interacting_galaxies_results.csv"
+  interacting_upper_limits: "data/interacting_galaxies_results_with_upperlimits_bmaj.csv"

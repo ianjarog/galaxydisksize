@@ -1,0 +1,23 @@
+# SoFiA source catalogue
+# Creator: SoFiA 2.4.1 (23-Mar-2022)
+# Time:    Fri, 22 Aug 2025, 08:38:06
+#
+# Note that the plain-text catalogue is solely intended for
+# visual inspection and should not be used for quantitative
+# analysis due to limited precision and the lack of Unified
+# Content Descriptors.  The XML catalogue should instead be
+# imported into Python or VO-compatible software to analyse
+# the source parameters measured by SoFiA, e.g. through the
+# astropy.io.votable module of Astropy.
+#
+# Header rows:
+#   1 = column number
+#   2 = parameter name
+#   3 = parameter unit
+#
+#                           1             2             3             4             5             6             7             8             9            10            11            12            13            14            15            16            17            18            19            20            21            22            23            24            25            26            27            28            29            30            31            32            33            34            35            36            37            38            39            40            41            42            43            44            45            46
+#                        name            id             x             y             z         x_min         x_max         y_min         y_max         z_min         z_max         n_pix         f_min         f_max         f_sum           rel          flag          fill          mean           std          skew          kurt           rms           w20           w50          wm50       ell_maj       ell_min        ell_pa     ell3s_maj     ell3s_min      ell3s_pa        kin_pa         err_x         err_y         err_z     err_f_sum            ra           dec         v_opt        x_peak        y_peak        z_peak       ra_peak      dec_peak    v_opt_peak
+#                           -             -           pix           pix           pix           pix           pix           pix           pix           pix           pix             -       Jy/beam       Jy/beam       Jy/beam             -             -             -       JY/BEAM       JY/BEAM             -             -       Jy/beam           pix           pix           pix           pix           pix           deg           pix           pix           deg           deg           pix           pix           pix       Jy/beam           deg           deg           m/s           pix           pix           pix           deg           deg           m/s
+
+  "SoFiA J094116.62+355255.5"             1    256.521137    255.817349     22.321614           233           277           229           291            10            34          7835  -5.91082e-04      0.006910     10.139868      0.000000             0      0.110547      4.245750      2.666835      1.384348      4.632962   3.86263e-04     22.840920     21.735296     22.537295     24.259295     14.197348    -19.110207     29.568125     17.906645    -16.519938    341.422974      0.028611      0.040165      0.022018      0.034190    145.319269     35.882070   7.01780e+06           254           253            13    145.321862     35.879722   7.21916e+06
+  "SoFiA J094110.12+355237.7"             2    282.884926    249.892010     19.909742           280           286           248           253            16            24           111  -2.67541e-04      0.001149      0.066645      0.000000             0      0.293651      1.988702      1.066187      0.325124      0.234188   4.95915e-04      7.888766      5.545196      7.705900      2.836435      1.847603    -59.570206      1.763924      1.412541    -50.929773     -1.000000      0.104704      0.087410      0.175741      0.005225    145.292155     35.877129   7.06988e+06           283           250            20    145.292037     35.877219   7.06793e+06

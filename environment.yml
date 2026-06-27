@@ -1,0 +1,31 @@
+# Conda environment for the galaxydisksize workflow.
+#
+# Create with:
+#     conda env create -f environment.yml
+#     conda activate galaxydisksize
+#     pip install -e .
+#
+# For an exact, byte-reproducible environment, regenerate a lock file with
+# `conda-lock` and commit it alongside this file (see README, "Reproducibility").
+name: galaxydisksize
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - numpy>=1.24
+  - scipy>=1.10
+  - pandas>=2.0
+  - astropy>=5.3
+  - matplotlib>=3.7
+  - emcee>=3.1
+  - corner>=2.2
+  - pyyaml>=6.0
+  - requests>=2.28
+  - snakemake-minimal>=8.0
+  - pytest>=7.4
+  - ruff>=0.4
+  # LaTeX toolchain for the final `paper` rule (compiles the manuscript PDF).
+  - tectonic>=0.14
+  - pip
+  - pip:
+      - -e .

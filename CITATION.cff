@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite both the software and the accompanying paper."
+title: "galaxydisksize: HI disc-size measurement and truncation analysis"
+abstract: >-
+  A Python package and Snakemake workflow that measures the atomic-hydrogen (HI)
+  disc size of galaxies from moment-0 maps, fits the HI size-mass relation, and
+  quantifies HI disc truncation in Hickson compact groups relative to isolated
+  AMIGA galaxies, including left-censored survival statistics for non-detections.
+type: software
+version: 0.1.0
+date-released: "2026-06-27"
+license: BSD-3-Clause
+repository-code: "https://github.com/ianjarog/galaxydisksize"
+authors:
+  - family-names: Ianjamasimanana
+    given-names: Roger
+    email: ianjamasimanana@gmail.com
+keywords:
+  - astronomy
+  - neutral hydrogen
+  - galaxy evolution
+  - Hickson compact groups
+  - size-mass relation
+  - survival analysis
+references:
+  - type: data
+    title: "MeerKAT HI data cubes and SoFiA masks of Hickson compact groups (Jones et al. 2023)"
+    doi: "10.5281/zenodo.6909872"
+    notes: >-
+      Upstream data products from which the moment-0 maps used here were derived.
+      Cited for provenance; not redistributed by this repository.

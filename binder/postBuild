@@ -1,0 +1,5 @@
+#!/bin/bash
+# Run by Binder after the conda environment is created: install the package from
+# the cloned repository so `import galaxydisksize` works in the notebook.
+set -euo pipefail
+pip install --no-deps -e .

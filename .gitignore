@@ -1,0 +1,89 @@
+# Byte-compiled / optimized / packaging artifacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Secrets / local credentials (never commit; see .env.example)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+id_rsa
+id_ed25519
+.netrc
+.pypirc
+
+# Test / coverage / linter caches
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# macOS metadata (the upstream tree was full of these)
+.DS_Store
+._*
+
+# Snakemake bookkeeping
+.snakemake/
+
+# --- Regenerated, reproducible outputs (rebuilt by the workflow) ---
+# Persisted intermediate fit summaries and per-galaxy residual tables.
+products/
+# Generated LaTeX fragments injected into the manuscript.
+latex/autogen/
+# Compiled manuscript PDF (rebuilt by the `paper` rule; not tracked).
+latex/*.pdf
+# LaTeX build by-products.
+latex/*.aux
+latex/*.log
+latex/*.out
+latex/*.bbl
+latex/*.blg
+latex/*.fls
+latex/*.fdb_latexmk
+latex/*.synctex.gz
+
+# --- Moment-0 map inputs (data/moment0_maps) ---
+# The moment-0 maps + small catalogues ARE committed (they reproduce the
+# diameters). The multi-GB SoFiA mask cubes are NOT committed -- they live here
+# locally for the MC error bars but must be obtained from Zenodo 6909872 (see
+# README and config/data_sources.yaml).
+# AMIGA mask cubes (whole directory).
+data/moment0_maps/sofiamasks/
+# HCG masks are co-located with the committed HCG moment-0 maps under
+# SoFiA_masks/, so ignore only the mask files there (not the *_cut_mom0.fits).
+data/moment0_maps/SoFiA_masks/**/*cubemask*.fits
+data/moment0_maps/SoFiA_masks/**/*_mask.fits
+data/external/
+# Root-level working copy only (anchored), not data/moment0_maps/SoFiA_masks/.
+/SoFiA_masks/
+# Intermediates written by the measurement into the maps dir (regenerated):
+# cropped maps and per-galaxy surface-density maps.
+data/moment0_maps/**/*_sd.fits
+data/moment0_maps/**/*_mom0_smaller.fits
+data/moment0_maps/**/*_ON_SD.fits
+
+# Redundant root copies of inputs that also live in data/ (kept as local backups).
+/angmom_final.csv
+/wang-surveys-table.txt
+/broelis-rhee.txt
+
+# Regenerated analysis figures are rebuilt by the workflow; keep only the
+# moment-0 postage stamps that the manuscript embeds.
+figures/*
+!figures/.gitkeep
+!figures/*_mom0_onesolar.pdf
+# Heavy SoFiA noise cubes (Zenodo; used for noise level of members lacking a catalogue).
+data/moment0_maps/**/*_SOFIA_noise.fits

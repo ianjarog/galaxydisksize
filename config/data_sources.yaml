@@ -1,0 +1,40 @@
+# External data products and their persistent identifiers.
+#
+# The statistics tier runs entirely from the committed measurement CSVs, so most
+# users never need these downloads. They are required only to re-run the
+# catalogue tier (workflow/rules/catalogue.smk) or to inspect the moment-0 maps.
+
+# Upstream data: HI data cubes and SoFiA masks of the Hickson compact groups.
+# These are NOT redistributed here; they are cited for provenance.
+upstream_cubes_and_masks:
+  reference: "Jones et al. 2023, A&A, 670, A21"
+  doi: "10.5281/zenodo.6909872"
+  url: "https://zenodo.org/records/6909872"
+  description: >-
+    MeerKAT HI data cubes and SoFiA source masks. The moment-0 maps used as the
+    input to this workflow's ellipse fitting were derived from these products.
+
+# Moment-0 maps and measured tables for this study. Deposit at publication and
+# fill in the DOI; the catalogue tier downloads them into data/moment0_maps/.
+moment0_maps:
+  reference: "this work"
+  doi: "TODO: mint a Zenodo DOI at submission"
+  url: "TODO"
+  target_dir: "data/external"
+  description: >-
+    Moment-0 maps (~158 MB) for the AMIGA and HCG galaxies, plus the measured
+    per-galaxy CSV tables. A 1-2 galaxy demo subset is committed under data/demo
+    so the ellipse-fitting step can be exercised without this download.
+
+# Where the catalogue-tier scripts look for the large external inputs. Defaults
+# are repository-relative (data/external/...); override per machine with the
+# environment variables below (see scripts/project_config.py and the README).
+path_overrides:
+  GALAXYDISKSIZE_EXTERNAL: "data/external"          # root for all external inputs
+  GALAXYDISKSIZE_HCG_MASKS: "<external>/SoFiA_masks"  # HCG SoFiA masks
+  GALAXYDISKSIZE_CIG_MASKS: "<external>/sofiamasks"   # AMIGA SoFiA masks
+  GALAXYDISKSIZE_MOM_MAPS: "<external>/CIG-MOMMAPS-SOFIA"
+  GALAXYDISKSIZE_NOISE_CUBES: "<external>/sofia2_cig"
+  GALAXYDISKSIZE_KINPARS: "<external>/KINPARS"
+  GALAXYDISKSIZE_DISTANCES: "<external>/MOMMAPS-BAROLO-DHI"
+  GALAXYDISKSIZE_FONT_DIR: "(unset -> Matplotlib default fonts)"

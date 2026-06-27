@@ -1,0 +1,32 @@
+# Apptainer/Singularity definition for HPC use (e.g. the SKA Regional Centre).
+#
+# Build (needs --fakeroot or root):
+#     apptainer build galaxydisksize.sif containers/Apptainer.def
+# Run the workflow from the repository root:
+#     apptainer exec --bind "$PWD":/work galaxydisksize.sif \
+#         bash -lc "cd /work && snakemake --cores 4 paper"
+#
+# Mirrors containers/Dockerfile: the light statistics tier plus the LaTeX build.
+
+Bootstrap: docker
+From: mambaorg/micromamba:1.5.8
+
+%files
+    environment.yml /opt/galaxydisksize/environment.yml
+
+%post
+    micromamba install -y -n base -f /opt/galaxydisksize/environment.yml
+    micromamba clean --all --yes
+
+%environment
+    export MAMBA_ROOT_PREFIX=/opt/conda
+    export PATH=/opt/conda/bin:$PATH
+
+%labels
+    org.opencontainers.image.title galaxydisksize
+    org.opencontainers.image.version 0.1.0
+    org.opencontainers.image.licenses BSD-3-Clause
+
+%help
+    Container for the galaxydisksize HI disc-truncation workflow.
+    Run: apptainer exec galaxydisksize.sif snakemake --cores 4 paper

@@ -1,0 +1,355 @@
+# Configuration file for Hickson Compact Groups (HCG) interacting galaxies
+# Data sources: Various VLA, WSRT, GMRT observations
+
+# Evolutionary phases of HCG groups
+# Phase 1: Early interaction
+# Phase 2: Intermediate interaction  
+# Phase 3a/3b/3c: Advanced interaction stages
+phases:
+  HCG2: "1"
+  HCG7: "1"
+  HCG10: "1"
+  HCG15: "3c"
+  HCG16: "2"
+  HCG19: "1"
+  HCG22: "3c"
+  HCG23: "1"
+  HCG25: "1"
+  HCG26: "1"
+  HCG30: "3a"
+  HCG31: "2"
+  HCG33: "3c"
+  HCG37: "3a"
+  HCG40: "2"
+  HCG47: "2"
+  HCG56: "3c"
+  HCG58: "2"
+  HCG59: "1"
+  HCG61: "3a"
+  HCG62: "3a"
+  HCG68: "3c"
+  HCG71: "2"
+  HCG79: "2"
+  HCG88: "1"
+  HCG90: "3c"
+  HCG91: "2"
+  HCG92: "3a"
+  HCG93: "3c"
+  HCG96: "2"
+  HCG97: "3c"
+  HCG100: "2"
+
+# HCG member galaxies with HI data cube associations
+# Key: parent HI cube filename
+# Value: list of member galaxy mask filenames
+hcgs_members:
+  HCG2_HI.pbcor_vopt.fits:
+    - HCG2a_regrided.fits
+    - HCG2b_regrided.fits
+    - HCG2c_regrided.fits
+
+  HCG7_HI.pbcor_vopt.fits:
+    - HCG7a_regrided.fits
+    - HCG7c_regrided.fits
+    - HCG7d_regrided.fits
+
+  HCG10_HI.pbcor_vopt.fits:
+    - HCG10a_regrided.fits
+    - HCG10d_regrided.fits
+
+  HCG15_HI.pbcor_vopt.fits:
+    - HCG15f_regrided.fits
+
+  HCG16_HI.pbcor_vopt.fits:
+    - NGC848_regrided.fits
+    - HCG16a_regrided.fits
+    - HCG16b_regrided.fits
+    - HCG16c_regrided.fits
+    - HCG16d_regrided.fits
+
+  HCG19_HI.pbcor_vopt.fits:
+    - HCG19b_regrided.fits
+    - HCG19c_regrided.fits
+
+  HCG22_HI.pbcor_vopt.fits:
+    - HCG22c_regrided.fits
+
+  HCG23_HI.pbcor_vopt.fits:
+    # HCG23-26 is a tidal feature between galaxies
+    - HCG23-26_regrided.fits
+    - HCG23a_regrided.fits
+    - HCG23b_regrided.fits
+    - HCG23d_regrided.fits
+
+  HCG25_HI.pbcor_vopt.fits:
+    - HCG25a_regrided.fits
+    - HCG25b_regrided.fits
+
+  HCG26_HI.pbcor_vopt.fits:
+    - HCG26a_regrided.fits
+    - HCG26e_regrided.fits
+
+  # HCG30: No core members detected in HI
+
+  HCG31_HI.pbcor_vopt.fits:
+    - HCG31a_regrided.fits
+    - HCG31b_regrided.fits
+    - HCG31c_regrided.fits
+    - HCG31g_regrided.fits
+    - HCG31q_regrided.fits  # No optical diameter but HI is fine
+
+  HCG33_HI.pbcor_vopt.fits:
+    - HCG33c_regrided.fits
+
+  # HCG37: No core members detected in HI
+  # HCG38: Poor data cubes due to RFI
+
+  HCG40_HI.pbcor_vopt.fits:
+    - HCG40c_regrided.fits
+    - HCG40d_regrided.fits
+
+  # HCG47: Unreliable data cubes
+  # HCG48: False group (HCG48b excluded)
+  # HCG49: No reliable separation, poor data quality
+  # HCG54: Significant sidelobes, treated as single merger
+
+  HCG56_HI.pbcor_vopt.fits:
+    - HCG56a_regrided.fits
+
+  # HCG57: Poor data quality
+
+  HCG58_HI.pbcor_vopt.fits:
+    - HCG58a_regrided.fits
+    - HCG58e_regrided.fits
+
+  HCG59_HI.pbcor_vopt.fits:
+    - HCG59b_regrided.fits
+    - HCG59c_regrided.fits
+    - HCG59d_regrided.fits
+
+  HCG61_HI.pbcor_vopt.fits:
+    - HCG61c_regrided.fits
+
+  # HCG62: Undetected in HI
+
+  HCG68_HI.pbcor_vopt.fits:
+    - HCG68c_regrided.fits
+
+  HCG71_HI.pbcor_vopt.fits:
+    - AGC242021_regrided.fits
+    - AGC732898_regrided.fits
+    - HCG71a_regrided.fits
+    - HCG71c_regrided.fits
+
+  HCG79_HI.pbcor_vopt.fits:
+    - HCG79d_regrided.fits
+
+  HCG88_HI.pbcor_vopt.fits:
+    - HCG88a_regrided.fits
+    - HCG88b_regrided.fits
+    - HCG88c_regrided.fits
+    - HCG88d_regrided.fits
+
+  HCG90_HI.pbcor_vopt.fits:
+    - HCG90a_regrided.fits
+
+  HCG91_HI.pbcor_vopt.fits:
+    - HCG91a_regrided.fits
+    - HCG91b_regrided.fits
+    - HCG91c_regrided.fits
+
+  # HCG92: Stephan's Quintet - no emission located in galaxies themselves
+
+  HCG93_HI.pbcor_vopt.fits:
+    - HCG93b_regrided.fits
+
+  # HCG95: Unreliable separation, too far away
+
+  HCG96_HI.pbcor_vopt.fits:
+    - HCG96a_regrided.fits
+
+  # HCG97: No contours found (HCG97b excluded)
+  # HCG100: No separation for core, MRK935 too faint
+
+# Optical diameters in RC2 log(D25) format
+# Source: RC3 catalog and literature
+# Value of 100 indicates no reliable measurement
+logd25:
+  HCG10a: 1.47
+  HCG10d: 1.01
+  HCG2a: 1.17
+  HCG2b: 0.95
+  HCG2c: 1.01
+  HCG7a: 1.31
+  HCG7c: 1.23
+  HCG7d: 0.97
+  HCG15f: 0.83
+  HCG16a: 0.94
+  HCG16b: 1.21
+  HCG16c: 1.13
+  HCG16d: 1.17
+  HCG19b: 0.95
+  HCG19c: 1.09
+  HCG22c: 1.15
+  HCG23a: 1.20
+  HCG23b: 1.22
+  HCG23d: 0.83
+  HCG25a: 1.13
+  HCG25b: 0.98
+  HCG26a: 1.12
+  HCG26e: 0.54
+  HCG31a: 1.08
+  HCG31b: 0.97
+  HCG31c: 0.81
+  HCG31g: 0.73
+  HCG31q: 100  # No optical diameter available
+  HCG33c: 0.92
+  HCG40c: 1.19
+  HCG40d: 0.96
+  HCG56a: 1.00
+  HCG58a: 1.13
+  HCG58e: 0.84
+  HCG59b: 0.82
+  HCG59c: 0.92
+  HCG59d: 0.78
+  HCG61c: 1.21
+  HCG68c: 1.43
+  HCG71a: 1.03
+  HCG71c: 0.69
+  HCG79d: 1.04
+  HCG88a: 1.18
+  HCG88b: 1.10
+  HCG88c: 1.01
+  HCG88d: 1.02
+  HCG90a: 1.40
+  HCG91a: 1.29
+  HCG91b: 1.11
+  HCG91c: 0.95
+  HCG93b: 1.27
+  HCG96a: 1.05
+  AGC242021: 0.49
+  AGC732898: 0.56
+  NGC848: 1.13
+  HCG23-26: 100  # Tidal feature, no optical counterpart
+  MRK935: 0.60
+
+# Optical diameter uncertainties in log(D25)
+logd25_err:
+  HCG10a: 0.03
+  HCG10d: 0.11
+  HCG2a: 0.03
+  HCG2b: 0.09
+  HCG2c: 0.04
+  HCG7a: 0.03
+  HCG7c: 0.03
+  HCG7d: 0.05
+  HCG15f: 0.06
+  HCG16a: 0.11
+  HCG16b: 0.04
+  HCG16c: 0.04
+  HCG16d: 0.03
+  HCG19b: 0.06
+  HCG19c: 0.03
+  HCG22c: 0.05
+  HCG23a: 0.03
+  HCG23b: 0.04
+  HCG23d: 0.14
+  HCG25a: 0.03
+  HCG25b: 0.005
+  HCG26a: 0.05
+  HCG26e: 0.06
+  HCG31a: 0.08
+  HCG31b: 0.14
+  HCG31c: 0.18
+  HCG31g: 0.09
+  HCG31q: 100
+  HCG33c: 0.15
+  HCG40c: 0.05
+  HCG40d: 0.11
+  HCG56a: 0.04
+  HCG58a: 0.06
+  HCG58e: 0.06
+  HCG59b: 0.13
+  HCG59c: 0.05
+  HCG59d: 0.06
+  HCG61c: 0.04
+  HCG68c: 0.02
+  HCG71a: 0.05
+  HCG71c: 0.07
+  HCG79d: 0.11
+  HCG88a: 0.04
+  HCG88b: 0.04
+  HCG88c: 0.04
+  HCG88d: 0.04
+  HCG90a: 0.03
+  HCG91a: 0.04
+  HCG91b: 0.04
+  HCG91c: 0.04
+  HCG93b: 0.03
+  HCG96a: 0.05
+  AGC242021: 0.10
+  AGC732898: 0.31
+  NGC848: 0.04
+  HCG23-26: 100
+  MRK935: 0.08
+
+# Stellar masses log(M*/Msun) from Bitsakis et al. 2014 (A&A)
+# https://www.aanda.org/articles/aa/full_html/2014/05/aa23349-13/T3.html
+logm_star:
+  HCG2a: 9.86
+  HCG2b: 9.72
+  HCG2c: 9.72
+  HCG7a: 10.94
+  HCG7c: 10.40
+  HCG7d: 10.02
+  HCG15f: 9.37
+  HCG16a: 10.92
+  HCG16b: 10.97
+  HCG16c: 10.25
+  HCG16d: 10.35
+  HCG22c: 9.50
+  HCG25a: 10.22
+  HCG40c: 10.97
+  HCG40d: 10.67
+  HCG56a: 10.42
+  HCG59b: 9.88
+  HCG59c: 9.24
+  HCG59d: 8.66
+  HCG68c: 10.93
+  HCG71a: 10.89
+  HCG71c: 9.71
+  HCG79d: 9.03
+  HCG91a: 11.06
+  HCG91b: 10.60
+  HCG91c: 10.27
+  HCG96a: 11.31
+  # Missing stellar masses for:
+  # HCG10a, HCG10d, HCG19b, HCG19c, HCG23a, HCG23b, HCG23d
+  # HCG26a, HCG26e, HCG31a, HCG31b, HCG31c, HCG31g
+  # HCG58a, HCG58e, HCG61c, HCG88a-d, HCG90a, HCG93b
+
+# Custom cutout sizes for individual galaxies (arcmin)
+cut_sizes:
+  HCG68c: 11
+  HCG61c: 7  # Note: appears twice in original, using larger value
+  HCG9c: 8
+  HCG91c: 7
+  HCG91b: 6.5
+  HCG91ex1: 8
+  HCG10a: 10
+  HCG2a: 7
+  HCG7c: 7
+  HCG22c: 7
+  HCG25b: 8
+  HCG26a: 3
+  HCG26e: 2
+  HCG31a: 2
+  HCG31b: 2
+  HCG31c: 2
+  HCG31g: 2
+  HCG31q: 2
+  HCG59c: 2
+  HCG59d: 3
+  HCG88a: 3
+  HCG88d: 3
+  HCG93b: 6

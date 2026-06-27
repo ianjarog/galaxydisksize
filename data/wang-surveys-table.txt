@@ -1,0 +1,435 @@
+     15.20    5.09            WHISP(S)      
+      9.76    7.15            WHISP(S)      
+     12.98    4.99            WHISP(S)      
+     18.57    7.34            WHISP(S)      
+     12.94    7.01            WHISP(S)      
+     15.05    5.22            WHISP(S)      
+     21.69   16.63            WHISP(S)      
+      9.65    4.50            WHISP(S)      
+      7.74    3.25            WHISP(S)      
+     27.73    7.06            WHISP(S)      
+     17.75   11.35            WHISP(S)      
+     13.85   10.28            WHISP(S)      
+     18.81    9.83            WHISP(S)      
+     52.59   19.28            WHISP(S)      
+      6.38    3.51            WHISP(S)      
+     12.80    9.63            WHISP(S)      
+     16.26    6.52            WHISP(S)      
+     11.33    5.25            WHISP(S)      
+     42.18    8.14            WHISP(S)      
+     20.78    9.61            WHISP(S)      
+     21.14   11.98            WHISP(S)      
+     60.44   17.97            WHISP(S)      
+      5.47    2.80            WHISP(S)      
+     36.16    7.67            WHISP(S)      
+      6.10    4.28            WHISP(S)      
+      2.27    1.69            WHISP(S)      
+      4.45    1.66            WHISP(S)      
+     14.75    4.32            WHISP(S)      
+     14.11   11.78            WHISP(S)      
+     15.19    4.75            WHISP(S)      
+      7.18    6.28            WHISP(S)      
+     11.86    5.93            WHISP(S)      
+      4.78    4.16            WHISP(S)      
+     12.30    4.97            WHISP(S)      
+     13.42    8.47            WHISP(S)      
+     10.45    3.73            WHISP(S)      
+      6.72    4.84            WHISP(S)      
+     11.09    5.86            WHISP(S)      
+      8.82    5.47            WHISP(S)      
+      8.08    4.99            WHISP(S)      
+      5.05    4.31            WHISP(S)      
+      7.95    2.97            WHISP(S)      
+     11.18    6.52            WHISP(S)      
+      7.35    6.04            WHISP(S)      
+      3.95    2.49            WHISP(S)      
+     20.79    9.64            WHISP(S)      
+     10.51    4.90            WHISP(S)      
+     20.11   13.09            WHISP(S)      
+     44.45   14.36            WHISP(S)      
+     24.93    9.13            WHISP(S)      
+      2.19    2.33               LVHIS      
+     22.84   22.92               LVHIS      
+     27.74   18.76               LVHIS      
+     28.21   36.68               LVHIS      
+      5.66    7.36               LVHIS      
+     10.81    6.70               LVHIS      
+     15.85   12.34               LVHIS      
+     18.84   15.08               LVHIS      
+     21.31   14.21               LVHIS      
+      5.56    5.29               LVHIS      
+      8.98    6.69               LVHIS      
+      4.79    2.53               LVHIS      
+      6.10    3.14               LVHIS      
+     10.57    7.74               LVHIS      
+      6.41       -               LVHIS      
+     10.80   12.92               LVHIS      
+      4.03    2.29               LVHIS      
+      5.06    2.91               LVHIS      
+      8.83    4.94               LVHIS      
+      6.10    2.79               LVHIS      
+     11.29    2.20               LVHIS      
+      6.38    2.07               LVHIS      
+     16.23    3.05               LVHIS      
+     64.49   38.98               LVHIS      
+      3.51    1.97               LVHIS      
+      2.27    1.94               LVHIS      
+      1.83    1.98               LVHIS      
+      8.91    7.13               LVHIS      
+      1.89       -               LVHIS      
+     22.55   28.74               LVHIS      
+      2.51    3.32               LVHIS      
+     10.56   11.87               LVHIS      
+      7.53    4.88               LVHIS      
+     16.01   17.80               LVHIS      
+     58.09   25.76               LVHIS      
+      3.64    0.94               LVHIS      
+      1.93    1.88               LVHIS      
+      5.02    2.15               LVHIS      
+      4.76    6.21               LVHIS      
+      4.50    4.61               LVHIS      
+      4.80    3.96               LVHIS      
+      7.70    3.14               LVHIS      
+      5.25    6.02               LVHIS      
+     10.57    3.64               LVHIS      
+     59.52    8.55               LVHIS      
+      4.51       -               LVHIS      
+     17.74    7.55               LVHIS      
+     10.94   13.48               LVHIS      
+      3.94       -               LVHIS      
+      9.86    7.45               LVHIS      
+      7.06    2.13               LVHIS      
+      6.24    2.73               LVHIS      
+     16.22   11.40               LVHIS      
+      5.12    3.44               LVHIS      
+      8.45    6.21               LVHIS      
+     15.56   15.92               LVHIS      
+     69.11   43.13            Bluedisk      
+     51.41   53.41            Bluedisk      
+     50.56   34.46            Bluedisk      
+     68.12   53.55            Bluedisk      
+     77.91   30.32            Bluedisk      
+     87.69   52.97            Bluedisk      
+     73.29   41.96            Bluedisk      
+     47.82   53.68            Bluedisk      
+     57.02   49.90            Bluedisk      
+     39.76   42.12            Bluedisk      
+     70.52   57.79            Bluedisk      
+     75.22   53.99            Bluedisk      
+     98.59   60.82            Bluedisk      
+     50.34   35.04            Bluedisk      
+    104.97   40.92            Bluedisk      
+     56.03   34.71            Bluedisk      
+     69.52   39.22            Bluedisk      
+     66.03   40.98            Bluedisk      
+     58.18   36.66            Bluedisk      
+     59.68   64.10            Bluedisk      
+     55.98   58.13            Bluedisk      
+     87.57   51.60            Bluedisk      
+     44.97   34.00            Bluedisk      
+     28.28   29.64            Bluedisk      
+     25.44   28.17            Bluedisk      
+     63.25   54.87            Bluedisk      
+     43.69   29.95            Bluedisk      
+     29.70   52.23            Bluedisk      
+     58.70   52.46            Bluedisk      
+     27.07   30.85            Bluedisk      
+     37.00   35.17            Bluedisk      
+     41.22   31.26            Bluedisk      
+     44.04   51.93            Bluedisk      
+     39.77   33.05            Bluedisk      
+     26.35   47.75            Bluedisk      
+     37.28   47.86            Bluedisk      
+     71.19   42.67            Bluedisk      
+     48.94   39.90            Bluedisk      
+     48.67   63.58            Bluedisk      
+     43.37   23.04            Diskmass      
+     29.47   27.96            Diskmass      
+     34.96   18.50            Diskmass      
+     27.34   25.80            Diskmass      
+     60.21   25.83            Diskmass      
+     36.65    7.92            Diskmass      
+     40.29   22.17            Diskmass      
+     44.17   38.98            Diskmass      
+     24.53   26.01            Diskmass      
+     56.57   40.62            Diskmass      
+     67.54   31.17            Diskmass      
+     53.45   34.73            Diskmass      
+     73.62   24.53            Diskmass      
+     34.76   32.48            Diskmass      
+     98.49   46.50            Diskmass      
+     30.05   20.28            Diskmass      
+     23.46    9.94            Diskmass      
+     39.95   14.65            Diskmass      
+     69.34   73.33            Diskmass      
+    104.46   33.53            Diskmass      
+     66.12   34.39            Diskmass      
+     33.72   12.40            Diskmass      
+     34.91   25.32            Diskmass      
+     47.92   39.58            Diskmass      
+     37.86   16.74            Diskmass      
+     22.44   10.20            Diskmass      
+     53.48   43.77            Diskmass      
+     49.96   45.03            Diskmass      
+     32.33   19.57              THINGS      
+      4.27    1.96              THINGS      
+     13.31    8.01              THINGS      
+     12.81       -              THINGS      
+      2.80       -              THINGS      
+      3.86    1.57              THINGS      
+      6.39       -              THINGS      
+      5.28    6.28              THINGS      
+      2.31       -              THINGS      
+     34.14   21.71              THINGS      
+     25.17   14.09              THINGS      
+     15.55   17.96              THINGS      
+     11.47    4.06              THINGS      
+      8.48    5.65              THINGS      
+     11.97    0.32              THINGS      
+      4.45   14.87              THINGS      
+     28.72   19.12              THINGS      
+     53.01   21.37              THINGS      
+     15.29    9.50              THINGS      
+     18.18   13.91          Ursa Major      
+     32.03   14.90          Ursa Major      
+     45.88   31.11          Ursa Major      
+     46.64   12.21          Ursa Major      
+     17.75    9.36          Ursa Major      
+     23.70   25.10          Ursa Major      
+     43.07   15.60          Ursa Major      
+     29.11   26.40          Ursa Major      
+     28.35   12.01          Ursa Major      
+     35.93   29.63          Ursa Major      
+     20.78   14.25          Ursa Major      
+     26.19    8.84          Ursa Major      
+     13.96    4.96          Ursa Major      
+     13.96    4.96          Ursa Major      
+     34.63    8.29          Ursa Major      
+     51.40   36.52          Ursa Major      
+     51.40   36.52          Ursa Major      
+      6.60    4.10          Ursa Major      
+      6.60    4.10          Ursa Major      
+     14.93   12.44          Ursa Major      
+     14.93   12.44          Ursa Major      
+     36.36   14.25          Ursa Major      
+     10.28    7.64          Ursa Major      
+     10.28    7.64          Ursa Major      
+     23.91    9.14          Ursa Major      
+     23.91    9.14          Ursa Major      
+     33.22   10.17          Ursa Major      
+     31.27   25.59          Ursa Major      
+     20.99   13.85          Ursa Major      
+     20.99   13.85          Ursa Major      
+     45.99   23.74          Ursa Major      
+     45.99   23.74          Ursa Major      
+     37.33   21.57          Ursa Major      
+     12.55    9.65          Ursa Major      
+     49.78   26.71          Ursa Major      
+     33.22   20.87          Ursa Major      
+     34.52   24.63          Ursa Major      
+     14.07   14.25          Ursa Major      
+     12.38   12.64                VIVA      
+     43.82   34.61                VIVA      
+     30.42   33.20                VIVA      
+     33.83   21.58                VIVA      
+     18.19   11.04                VIVA      
+     13.54   14.24                VIVA      
+     14.97    7.10                VIVA      
+     32.38   34.72                VIVA      
+      9.86   11.04                VIVA      
+      9.90   14.24                VIVA      
+     34.88    5.66                VIVA      
+     10.65   17.89                VIVA      
+     17.43   16.93                VIVA      
+     16.42   10.48                VIVA      
+      3.18    7.78                VIVA      
+     11.37   14.24                VIVA      
+      8.44    5.28                VIVA      
+     10.24   22.22                VIVA      
+      7.72    9.58                VIVA      
+     23.72   26.24                VIVA      
+      9.23   12.64                VIVA      
+     20.37   12.46                VIVA      
+     21.77   23.55                VIVA      
+     19.38    7.91                VIVA      
+     18.90   20.47                VIVA      
+     13.99   33.20                VIVA      
+     18.17   22.08                VIVA      
+      2.72   12.14                VIVA      
+     27.39   21.45                VIVA      
+     13.75   12.64                VIVA      
+      9.98    3.17                VIVA      
+      5.66   10.78                VIVA      
+     33.47   14.94                VIVA      
+     26.87    9.49                VIVA      
+     12.94   11.53                VIVA      
+     36.18   10.88                VIVA      
+     46.90   26.37           WHISP(ET)      
+     51.64   23.20           WHISP(ET)      
+     63.20   28.16           WHISP(ET)      
+     60.76   31.63           WHISP(ET)      
+     21.25   15.17           WHISP(ET)      
+     25.13    9.79           WHISP(ET)      
+     31.42    6.67           WHISP(ET)      
+     79.52   42.49           WHISP(ET)      
+     78.95   17.73           WHISP(ET)      
+     66.39   28.73           WHISP(ET)      
+     57.62   26.82           WHISP(ET)      
+     50.22   23.93           WHISP(ET)      
+     46.46   28.26           WHISP(ET)      
+     34.33   15.67           WHISP(ET)      
+    100.44   20.31           WHISP(ET)      
+     69.08   17.22           WHISP(ET)      
+     45.40   13.09           WHISP(ET)      
+     76.04   23.03           WHISP(ET)      
+     17.57   15.27           WHISP(ET)      
+     10.15   10.35           WHISP(ET)      
+     11.28    2.88           WHISP(ET)      
+     12.77    4.62           WHISP(ET)      
+     18.59   13.37           WHISP(ET)      
+      7.39    3.48           WHISP(ET)      
+     34.81   16.93           WHISP(ET)      
+      8.52    7.93           WHISP(ET)      
+     17.02   14.99           WHISP(ET)      
+      9.44    4.10           WHISP(ET)      
+     15.75    6.40           WHISP(ET)      
+     35.25   12.99           WHISP(ET)      
+     43.18   18.13           WHISP(ET)      
+     41.94   22.00           WHISP(ET)      
+     48.42   22.54           WHISP(ET)      
+     57.22   21.39           WHISP(ET)      
+     19.50    8.67           WHISP(ET)      
+    120.80   20.94           WHISP(ET)      
+     15.26   11.96           WHISP(ET)      
+     20.25   11.02           WHISP(ET)      
+     21.04    6.64           WHISP(ET)      
+     51.96   31.71           WHISP(ET)      
+      4.72    1.75           WHISP(ET)      
+     28.45    9.49             Atlas3D      
+     22.95   16.93             Atlas3D      
+     21.88    8.03             Atlas3D      
+      9.11    7.74             Atlas3D      
+     25.43   10.55             Atlas3D      
+     18.65    4.96             Atlas3D      
+     57.81   14.66             Atlas3D      
+     21.25   17.70             Atlas3D      
+     34.67    4.90             Atlas3D      
+      3.28       -       LITTLE THINGS      
+      7.24    3.20       LITTLE THINGS      
+      7.81    3.30       LITTLE THINGS      
+     11.27    7.41       LITTLE THINGS      
+     13.05    0.67       LITTLE THINGS      
+     11.01    5.98       LITTLE THINGS      
+      3.49    1.57       LITTLE THINGS      
+      6.74    4.08       LITTLE THINGS      
+      1.66    0.99       LITTLE THINGS      
+      3.84    1.63       LITTLE THINGS      
+      4.11    2.23       LITTLE THINGS      
+     10.51    5.25       LITTLE THINGS      
+      3.33    3.98       LITTLE THINGS      
+      6.79    6.37       LITTLE THINGS      
+      6.05    6.73       LITTLE THINGS      
+      9.97    0.28       LITTLE THINGS      
+      1.78    0.50       LITTLE THINGS      
+      6.94    4.68       LITTLE THINGS      
+      2.52    0.80       LITTLE THINGS      
+      8.07    4.54       LITTLE THINGS      
+      1.81    1.25       LITTLE THINGS      
+      0.78    0.59       LITTLE THINGS      
+      1.50    1.60       LITTLE THINGS      
+      3.98       -       LITTLE THINGS      
+      4.85    1.63       LITTLE THINGS      
+      4.06    3.30       LITTLE THINGS      
+      2.76       -       LITTLE THINGS      
+      7.19    3.34       LITTLE THINGS      
+     13.60    8.01       LITTLE THINGS      
+      4.70    3.50       LITTLE THINGS      
+      2.01    1.40       LITTLE THINGS      
+     12.40    4.19       LITTLE THINGS      
+      2.01    0.90       LITTLE THINGS      
+      2.49    1.28       LITTLE THINGS      
+      4.86    3.35       LITTLE THINGS      
+      4.80       -       LITTLE THINGS      
+      5.91       -       LITTLE THINGS      
+      1.90    1.40       LITTLE THINGS      
+      3.62       -       LITTLE THINGS      
+     27.62   11.68                 K09      
+      8.29    8.53                 K09      
+     14.57    6.10                 K09      
+      3.33    1.23                 K09      
+     28.22    3.61                 K09      
+     14.66    6.04                 K09      
+      5.40    2.80                 K09      
+     27.53    9.63                 K09      
+      3.01    1.59                 K09      
+      6.27    3.17                 K09      
+      6.11    4.17                 K09      
+      5.02    2.36                 K09      
+     13.32    3.44                 K09      
+      4.09    1.64                 K09      
+      8.75    5.32                 K09      
+     10.34    5.53                 K09      
+      6.63    2.09                 K09      
+     15.46    6.94                 K09      
+     10.75    3.87                 K09      
+     14.10    8.33                 K09      
+      5.72    4.40                 K09      
+      7.23    3.09                 K09      
+     14.59    4.74                 K09      
+      4.20    1.57                 L14      
+     13.60    7.54                 L14      
+      6.20    3.44                 L14      
+     11.00    3.78                 L14      
+      2.00       -                 L14      
+      2.80    0.98                 L14      
+      6.60       -                 L14      
+      3.80       -                 L14      
+      8.60       -                 L14      
+      5.20       -                 L14      
+      7.80    3.34                 L14      
+      2.20    1.45                 L14      
+     17.80       -                 L14      
+      6.20       -                 L14      
+      3.60    1.75                 L14      
+      1.80    1.25                 L14      
+     24.48       -                 VGS      
+     17.87       -                 VGS      
+     17.69       -                 VGS      
+     35.09       -                 VGS      
+     16.47       -                 VGS      
+     30.32       -                 VGS      
+     39.27       -                 VGS      
+     25.91       -                 VGS      
+     21.19       -                 VGS      
+     23.75       -                 VGS      
+     24.82       -                 VGS      
+     17.62       -                 VGS      
+     47.75       -                 VGS      
+     14.70       -                 VGS      
+      3.40    2.49               FIGGS      
+      2.84       -               FIGGS      
+      4.57       -               FIGGS      
+      2.20       -               FIGGS      
+      2.74       -               FIGGS      
+      4.73    3.36               FIGGS      
+      9.92    4.16               FIGGS      
+      3.72    1.55               FIGGS      
+      3.46       -               FIGGS      
+      1.69       -               FIGGS      
+      4.22    3.15               FIGGS      
+      3.06       -               FIGGS      
+      4.20    2.98               FIGGS      
+      2.63    1.44               FIGGS      
+     12.43       -               FIGGS      
+      5.59       -               FIGGS      
+      3.38    3.25               FIGGS      
+      2.58    1.59               FIGGS      
+      1.65       -               FIGGS      
+      2.58    1.31               FIGGS      
+      2.08    0.80               FIGGS      
+      2.12       -               FIGGS      
+      3.30    2.26               FIGGS      
+      3.06    2.06               FIGGS      
+      1.99    0.89               FIGGS      
+      1.95    1.42               FIGGS      
+      4.30       -               FIGGS      

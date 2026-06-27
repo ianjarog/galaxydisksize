@@ -1,0 +1,80 @@
+# Snakemake workflow for the galaxydisksize HI disc-truncation analysis.
+#
+# Run from the repository root:
+#
+#     snakemake --use-conda --cores 4 paper      # build the manuscript PDF
+#     snakemake --use-conda --cores 4 figures    # build only the analysis figures
+#     snakemake -n paper                         # dry run: print the DAG
+#
+# Design rule: every output file is produced by exactly ONE rule. Snakemake
+# refuses to build a workflow in which two rules write the same file, which
+# structurally prevents the figure-overwriting problem that motivated this
+# repository (two scripts that both wrote the residual-histogram PDFs).
+#
+# The workflow has two tiers:
+#   * catalogue.smk -- the radio/measurement tier (moment-0 maps + SoFiA masks
+#     -> ellipse fitting -> measured CSVs). It needs the Zenodo data and the
+#     heavy radio environment, so it is opt-in and its outputs are committed.
+#   * inference/figures/paper -- the statistics tier, which runs from the
+#     committed CSVs on a light pure-Python environment. This is the default.
+
+import os
+
+configfile: "config/config.yaml"
+
+# Interpreter used for every analysis script (overridable with --config python=).
+PYTHON = config["python"]
+
+# Canonical output groups, referenced by the aggregate targets below.
+ANALYSIS_FIGURES = [
+    "figures/mass_size_relation_all_surveys.pdf",
+    "figures/mass_size_relation_all_surveys_corner.pdf",
+    "figures/mass_size_relation_amiga_hcgs.pdf",
+    "figures/amiga_residual_trends_kelley_larger_sample_dictionary.pdf",
+    "figures/diameter_residuals_hist_kelley_larger_sample.pdf",
+    "figures/diameter_residuals_by_phase_kelley_larger_sample.pdf",
+    "figures/diameter_correlation_kelley_larger_sample.pdf",
+    "figures/diameter_residuals_vs_D25_kelley_larger_sample.pdf",
+    "figures/survey_median_residual_kelley_larger_well_defined_sample_hydra_split.pdf",
+    "figures/pairwise_clique_euler_vertical.pdf",
+]
+
+AUTOGEN = [
+    "latex/autogen/macros_mass_size.tex",
+    "latex/autogen/table_consistency_fits.tex",
+    "latex/autogen/eq_baseline.tex",
+    "latex/autogen/table_phase_stats.tex",
+    "latex/autogen/table_stat_tests.tex",
+    "latex/autogen/table_survey_residuals.tex",
+    "latex/autogen/table_trend_test.tex",
+    "latex/autogen/table_pairwise_residuals.tex",
+    "latex/autogen/macros_hcg_comparison.tex",
+    "latex/autogen/macros_hcg_censored.tex",
+    "latex/autogen/table_phase_stats_censored.tex",
+    "latex/autogen/table_stat_tests_censored.tex",
+    "latex/autogen/table_upperlimits.tex",
+]
+
+
+rule all:
+    """Default target: build everything needed for the manuscript."""
+    input:
+        "latex/hi_disk_size_environments.pdf",
+
+
+rule figures:
+    """Build only the analysis figures."""
+    input:
+        ANALYSIS_FIGURES,
+
+
+rule autogen:
+    """Build only the auto-generated LaTeX fragments (macros and tables)."""
+    input:
+        AUTOGEN,
+
+
+include: "rules/catalogue.smk"
+include: "rules/inference.smk"
+include: "rules/figures.smk"
+include: "rules/paper.smk"
