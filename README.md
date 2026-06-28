@@ -4,12 +4,16 @@
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](pyproject.toml)
 [![License: BSD-3-Clause](https://img.shields.io/badge/license-BSD--3--Clause-green.svg)](LICENSE)
 
-Measure and model the atomic-hydrogen (HI) disc size of galaxies, and quantify
-HI disc truncation in dense environments.
+
+Measure HI disk diameters of galaxies through direct ellipse fitting of their 
+\(1\ M_\odot\,\mathrm{pc}^{-2}\) HI surface-density contour. Use isolated galaxies 
+as a reference population to establish a scaling relation between HI and optical 
+disk sizes (\(D_{\mathrm{HI}}\)–\(D_{25}\)), and quantify how galaxies across 
+different environments deviate from this adopted baseline.
 
 This repository contains both a reusable Python package and a fully reproducible
-Snakemake workflow behind the study of HI disc truncation in Hickson compact
-groups (HCGs) relative to isolated AMIGA galaxies. From the moment-0 maps it
+Snakemake workflow behind the study of HI disc truncation across different 
+environments relative to isolated AMIGA galaxies. From the moment-0 maps it
 measures HI diameters, fits the HI size-mass relation, computes size residuals
 about the HI-to-optical baseline, runs left-censored survival statistics for the
 non-detections, and compiles the manuscript PDF — every figure, table, and inline
