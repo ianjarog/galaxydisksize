@@ -79,10 +79,11 @@ rule residual_analysis:
         interacting=INT,
         interacting_ul=INT_UL,
     output:
-        hcg_stats="products/hcg_residual_statistics_kelley_larger_sample.json",
-        amiga_residuals="products/amiga_residuals_per_galaxy_kelley_larger_sample_dictionary.csv",
-        hcg_residuals="products/hcg_residuals_per_galaxy_kelley_larger_sample.csv",
+        hcg_stats="products/hcg_residual_statistics.json",
+        amiga_residuals="products/amiga_residuals_per_galaxy.csv",
+        hcg_residuals="products/hcg_residuals_per_galaxy.csv",
         pairwise="products/well_defined_pairwise_residuals.json",
+        amiga_combined="products/amiga_combined_larger_sample.csv",
         eq_baseline="latex/autogen/eq_baseline.tex",
         phase_stats="latex/autogen/table_phase_stats.tex",
         stat_tests="latex/autogen/table_stat_tests.tex",
@@ -90,7 +91,7 @@ rule residual_analysis:
         trend_test="latex/autogen/table_trend_test.tex",
         pairwise_table="latex/autogen/table_pairwise_residuals.tex",
         hcg_comparison="latex/autogen/macros_hcg_comparison.tex",
-        trends_figure="figures/amiga_residual_trends_kelley_larger_sample_dictionary.pdf",
+        trends_figure="figures/amiga_residual_trends.pdf",
     shell:
         "{PYTHON} {input.script}"
 
@@ -101,8 +102,8 @@ rule survival_analysis:
         script="scripts/survival_analysis.py",
         interacting_ul=INT_UL,
         provenance="data/upperlimits_bmaj_provenance.csv",
-        hcg_stats="products/hcg_residual_statistics_kelley_larger_sample.json",
-        amiga_residuals="products/amiga_residuals_per_galaxy_kelley_larger_sample_dictionary.csv",
+        hcg_stats="products/hcg_residual_statistics.json",
+        amiga_residuals="products/amiga_residuals_per_galaxy.csv",
     output:
         macros="latex/autogen/macros_hcg_censored.tex",
         phase_stats="latex/autogen/table_phase_stats_censored.tex",

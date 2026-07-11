@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
-"""
-TEST figure for Figure 8 (survey median-residual forest plot) with the HCG
-upper limits incorporated "in the same spirit as the histograms": the HCG entry
-now represents the full det+upper-limit sample via its Kaplan-Meier median,
-with the detection-only median shown faintly and an arrow marking the shift.
+"""Figure 8 (top): survey median-residual forest plot with the HCG upper limits.
 
-Throwaway output: figures/test_figure8_survey_km.pdf  (nothing else touched).
-Run: python scripts/plot_survey_residual_forest.py
+The HCG entry represents the full detections + upper-limits sample via its
+Kaplan-Meier median (consistent with the residual histograms): the marker sits
+at the KM median, the upper whisker runs to the KM 84th percentile, and a
+directional arrow marks the lower side, which is unconstrained because of the
+left-censoring by the beam-size upper limits.
+
+Output: figures/survey_median_residual.pdf
+Run:    python scripts/plot_survey_residual_forest.py
 """
 
-import argparse
 import re
-import shutil
 import sys
 from pathlib import Path
 
@@ -32,6 +32,7 @@ figure_style.apply()
 
 FIG = ROOT / "figures"
 SURVEY_TEX = ROOT / "latex" / "autogen" / "table_survey_residuals.tex"
+OUTPUT = FIG / "survey_median_residual.pdf"
 
 
 def parse_surveys():
@@ -43,7 +44,7 @@ def parse_surveys():
     return pd.DataFrame(rows, columns=["sample", "N", "median", "scatter"])
 
 
-def main(promote=False):
+def main():
     _, _, sigma, _, hcg = load()
     rh = hcg["delta"].to_numpy(float)
     is_lim = hcg["is_limit"].to_numpy(bool)
@@ -69,7 +70,9 @@ def main(promote=False):
     hcg_up84, _ = _kmq(0.84)  # upper 1-sigma-equivalent (defined)
     _, hcg_lo_def = _kmq(0.16)  # lower 1-sigma-equivalent (unconstrained)
     df = parse_surveys()
-    df = df[df["sample"] != "Hydra I (combined)"].copy()  # dropped per Kelley
+    # The combined Hydra I row is superseded by its cluster/infall/field split,
+    # which carries the environmental information; keep only the split entries.
+    df = df[df["sample"] != "Hydra I (combined)"].copy()
     others = df[df["sample"] != "HCGs"].copy()
 
     # ONE combined HCG entry: full det+upper-limit sample, KM median, N=124.
@@ -160,28 +163,13 @@ def main(promote=False):
     ax.legend(handles=legend_handles, loc="lower left", fontsize=13, frameon=True, framealpha=0.92)
 
     fig.tight_layout()
-    out = FIG / "test_figure8_survey_km.pdf"
-    fig.savefig(out, bbox_inches="tight", dpi=200)
+    fig.savefig(OUTPUT, bbox_inches="tight", dpi=200)
     plt.close(fig)
     print(
-        f"[saved] {out}  (HCG KM median={km_med:+.3f}, upper 84th pct={hcg_up84:+.3f}, "
+        f"[saved] {OUTPUT}  (HCG KM median={km_med:+.3f}, upper 84th pct={hcg_up84:+.3f}, "
         f"lower 16th unconstrained={not hcg_lo_def}, n=124)"
     )
 
-    if promote:
-        prod = FIG / "survey_median_residual_kelley_larger_well_defined_sample_hydra_split.pdf"
-        bak = (
-            FIG
-            / "survey_median_residual_kelley_larger_well_defined_sample_hydra_split_prevtop_backup.pdf"
-        )
-        if prod.exists() and not bak.exists():
-            shutil.copy2(prod, bak)
-            print(f"[backup] {prod.name} -> {bak.name}")
-        shutil.copy2(out, prod)
-        print(f"[PROMOTED] production Figure 8 (top) -> {prod.name}")
-
 
 if __name__ == "__main__":
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--promote", action="store_true")
-    main(promote=ap.parse_args().promote)
+    main()

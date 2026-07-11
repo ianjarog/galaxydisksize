@@ -32,7 +32,7 @@ def test_combined_size_mass_fit():
 
 def test_residual_baseline():
     """HI-to-optical baseline slope, intercept, and scatter."""
-    stats = json.loads((PRODUCTS / "hcg_residual_statistics_kelley_larger_sample.json").read_text())
+    stats = json.loads((PRODUCTS / "hcg_residual_statistics.json").read_text())
     assert stats["baseline_slope"] == pytest.approx(0.704, abs=1e-2)
     assert stats["baseline_intercept"] == pytest.approx(0.691, abs=2e-2)
     assert stats["baseline_sigma"] == pytest.approx(0.153, abs=5e-3)

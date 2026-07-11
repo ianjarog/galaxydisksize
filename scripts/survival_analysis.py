@@ -42,10 +42,10 @@ AUTOGEN = ROOT / "latex" / "autogen"
 ISO_CSV = DATA / "isolated_galaxies_results.csv"
 # Full combined AMIGA reference (407 = 35 resolved + 372 single-dish inferred),
 # i.e. the same isolated-galaxy sample used everywhere else in the paper.
-AMIGA_RESID_CSV = PROD / "amiga_residuals_per_galaxy_kelley_larger_sample_dictionary.csv"
+AMIGA_RESID_CSV = PROD / "amiga_residuals_per_galaxy.csv"
 HCG_AUG_CSV = DATA / "interacting_galaxies_results_with_upperlimits_bmaj.csv"
 PROV_CSV = DATA / "upperlimits_bmaj_provenance.csv"
-BASELINE_JSON = PROD / "hcg_residual_statistics_kelley_larger_sample.json"
+BASELINE_JSON = PROD / "hcg_residual_statistics.json"
 
 
 # --------------------------------------------------------------------------

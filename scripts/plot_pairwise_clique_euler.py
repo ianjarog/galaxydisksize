@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-"""
-TEST figure: Figure 8 BOTTOM panel (statistical-equivalence Euler diagram),
-recomputed with the HCG upper limits included.
+"""Figure 8 (bottom): statistical-equivalence Euler diagram with the HCG upper limits.
 
 Pairwise significance (BH-FDR at alpha=0.05): HCG-vs-survey comparisons use the
 Gehan generalised Wilcoxon test (HCG is left-censored by the 70 beam upper
@@ -15,8 +13,6 @@ The resulting maximal cliques are:
 
 """
 
-import argparse
-import shutil
 from pathlib import Path
 
 import matplotlib
@@ -59,7 +55,7 @@ def lbl(ax, x, y, s, c, bold=True):
     )
 
 
-def main(promote=False):
+def main():
     fig, ax = plt.subplots(figsize=(7.6, 8.4))
     ax.set_aspect("equal")
     ax.axis("off")
@@ -105,22 +101,11 @@ def main(promote=False):
     ax.set_xlim(-4.6, 4.6)
     ax.set_ylim(-5.6, 5.4)
     fig.tight_layout()
-    out = FIG / "plot_pairwise_clique_euler.pdf"
+    out = FIG / "pairwise_clique_euler_vertical.pdf"
     fig.savefig(out, bbox_inches="tight", dpi=200)
     plt.close(fig)
     print(f"[saved] {out}")
 
-    if promote:
-        prod = FIG / "pairwise_clique_euler_vertical.pdf"
-        bak = FIG / "pairwise_clique_euler_vertical_prevhardcoded_backup.pdf"
-        if prod.exists() and not bak.exists():
-            shutil.copy2(prod, bak)
-            print(f"[backup] {prod.name} -> {bak.name}")
-        shutil.copy2(out, prod)
-        print(f"[PROMOTED] production Figure 8 (bottom, Euler) -> {prod.name}")
-
 
 if __name__ == "__main__":
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--promote", action="store_true")
-    main(promote=ap.parse_args().promote)
+    main()

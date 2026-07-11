@@ -384,7 +384,7 @@ This fit defines the expected $D_{\rm HI}$ for an isolated galaxy of a given opt
 \end{table*}
 \begin{figure*}
 \centering
-\includegraphics[width=\textwidth]{../figures/amiga_residual_trends_kelley_larger_sample_dictionary.pdf}
+\includegraphics[width=\textwidth]{../figures/amiga_residual_trends.pdf}
 \caption{\label{fig:trend_test}The $\Delta \log D_{\rm HI}$ vs $\log D_{25}$ relation of the combined AMIGA sample fitted using the nine linear estimators mentioned in Sect.~\ref{sub:diameter-optical}. The solid lines are the fits to the data points, the black dots are quintile-binned medians of the residuals, and the horizontal dotted lines indicate $\pm \sigma_{\rm obs}$.}
 \end{figure*}
 We considered an estimator as free of $D_{25}$-dependent residual bias when $\rho_{\rm S}$ is statistically indistinguishable from zero, $p_{\rm S}$ exceeds a conventional significance threshold, and the mean residuals in both the low- and high-$D_{25}$ bins are each consistent with zero. The results of our test are summarized in Table~\ref{table:trend_test} and presented in Fig.~\ref{fig:trend_test}. The test indicates that the bisector, ODR, York, and \textsc{hyper-fit} fits resulted in a noticeable size-dependent bias. However, OLS($Y|X$), Theil--Sen, BCES($Y|X$), \texttt{linmix}, and the Bayesian \texttt{emcee} fits are statistically indistinguishable and consistent with no size-dependent bias. Thus, we adopt the Bayesian \texttt{emcee} fit as our preferred method to fit the AMIGA baseline. The Bayesian \texttt{emcee} fitted to the AMIGA galaxies yields the relation
@@ -395,8 +395,8 @@ corresponding to a sub-linear scaling $D_{\rm HI} \propto D_{25}^{0.70}$, with a
 \begin{figure*}
     \centering
     \begin{tabular}{c c}
-       \includegraphics[scale=0.4]{../figures/diameter_correlation_kelley_larger_sample.pdf} & 
-       \includegraphics[scale=0.4]{../figures/diameter_residuals_vs_D25_kelley_larger_sample.pdf}
+       \includegraphics[scale=0.4]{../figures/diameter_correlation.pdf} & 
+       \includegraphics[scale=0.4]{../figures/diameter_residuals_vs_D25.pdf}
        \end{tabular}
        \caption{$D_{\rm HI}$ versus $D_{25}$ in logarithmic space (left panel) and $\Delta \log (D_{\rm HI})$ versus $D_{25}$ (right panel). Open circle symbols indicate the combined AMIGA (isolated) galaxies and square symbols represent HCG galaxies. The solid line in the left panel is a Bayesian fit to the AMIGA sample (Eq.~\ref{eq:baseline}). The solid line in the right panel represents $\Delta \log (D_{\rm HI})$ = 0 (the AMIGA reference). The gray area marks the $\pm 1\sigma$ scatter band. The dashed lines indicate the $\pm 3\sigma$ bounds. The dotted line is a 1:1 relation. }
        \label{fig:diameter_correlation}
@@ -431,14 +431,14 @@ randomly chosen HCG galaxy roughly \CliffProbAmigaGreaterHCGCensoredPercent\% of
 
 \begin{figure*}
     \centering
-       \includegraphics[scale=0.45]{../figures/diameter_residuals_hist_kelley_larger_sample.pdf}
+       \includegraphics[scale=0.45]{../figures/diameter_residuals_hist.pdf}
        \caption{Probability-density distributions of the residuals $\Delta\log(D_{\rm HI})$ for AMIGA (hatched, $N=407$) and HCG (filled, color-coded by evolutionary phase) galaxies. The HCG sample includes the $70$ \HI\ nondetected members as beam-size upper limits (binned at their limit value; Appendix~\ref{app:upperlimits}), giving $N=124$. The black dashed line marks the AMIGA mean and the red dashed line the Kaplan--Meier median of the HCG residuals (upper limits included). The histogram bars are color-coded by evolutionary phase within each bin. }
        \label{fig:residuals_hist}
 \end{figure*}
 
 \begin{figure*}
     \centering
-     \includegraphics[scale=0.45]{../figures/diameter_residuals_by_phase_kelley_larger_sample.pdf}
+     \includegraphics[scale=0.45]{../figures/diameter_residuals_by_phase.pdf}
 	\caption{Box-and-whisker distributions of the residuals $\Delta\log(D_{\rm HI})$ for the AMIGA reference and the HCG galaxies grouped by evolutionary phase. Filled circles are detections and open downward triangles are beam-size upper limits; the boxes are drawn with the upper limits placed at their limit value (a conservative view, since the true diameters are smaller). Bold bars mark the Kaplan--Meier median (black, defined for AMIGA and Phases~1--2) or its upper bound (red with downward arrow, for Phases~3c and 3a where more than half the members are upper limits). The horizontal solid line marks $\Delta = 0$ and the dashed lines indicate the $\pm 1\sigma_{\rm obs}$ band of the AMIGA baseline scatter ($\sigma_{\rm obs} = 0.153$~dex).}
     \label{fig:hist_by_phase}
 \end{figure*}
@@ -481,7 +481,7 @@ For each survey, we computed the residuals $\Delta\log(D_{\rm HI})$ relative to 
 \begin{figure*}
     \centering
     \begin{tabular}{c c}
-       \includegraphics[scale=0.4]{../figures/survey_median_residual_kelley_larger_well_defined_sample_hydra_split.pdf}&
+       \includegraphics[scale=0.4]{../figures/survey_median_residual.pdf}&
        \includegraphics[scale=0.5]{../figures/pairwise_clique_euler_vertical.pdf}
        \end{tabular}
 	\caption{Left panel: Median residual $\Delta\log(D_{\rm HI})$ relative to the AMIGA baseline for each survey. The error bars indicate the $\pm 1\sigma$ scatter around the median. Surveys are ranked from most truncated (top) to least truncated (bottom). The vertical solid line marks $\Delta = 0$ (the AMIGA expectation), and the shaded region indicates the $\pm 1\sigma_{\rm AMIGA}$ envelope. The marker size is proportional to the sample size. The HCG point is the Kaplan--Meier median of the full detection-plus-upper-limit sample ($N=124$); its bar reaches the KM 84th percentile on the upper (less-truncated) side, while the lower side is unconstrained (arrow), since more than half of the HCG members are upper limits. Right panel: A diagram illustrating the statistical significance of the difference between the median residual $\Delta\log(D_{\rm HI})$ of each sample. Samples enclosed by the same ellipse are statistically indistinguishable. Samples that do not share an ellipse are statistically different. The vertical ordering indicates increasing H\,{\sc i} truncation relative to the AMIGA baseline at the bottom.}

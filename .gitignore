@@ -87,3 +87,6 @@ figures/*
 !figures/*_mom0_onesolar.pdf
 # Heavy SoFiA noise cubes (Zenodo; used for noise level of members lacking a catalogue).
 data/moment0_maps/**/*_SOFIA_noise.fits
+
+# Confidential editorial correspondence (kept local, never released).
+latex/referee_report.txt

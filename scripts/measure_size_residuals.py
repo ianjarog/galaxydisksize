@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Extending AMIGA sample.
+Size-residual analysis on the enlarged AMIGA baseline sample.
 
-This script does the followiing:
+This script does the following:
 1. Loads the Bayesian HI mass-size calibration fit on the combined
    AMIGA resolved + HCGs + MIGHTEE + Wang+16 sample, produced by
    scripts/plot_size_mass_all_surveys.py.
@@ -14,8 +14,9 @@ This script does the followiing:
    the resolved (moment-map) HI diameter is used directly; only the
    remaining Jones-only galaxies are inferred from M_HI.
 4. Combines the inferred Jones-only AMIGA galaxies with the resolved AMIGA sample.
-5. Re-runs the residual analysis using the larger AMIGA baseline and OLS(Y|X).
-6. Writes all figures and products to the dedicated analysis directories.
+5. Re-runs the residual analysis using the enlarged AMIGA baseline.
+6. Writes the residual products, the manuscript's auto-generated LaTeX
+   fragments, and the residual-trend audit figure.
 """
 
 from __future__ import annotations
@@ -27,6 +28,10 @@ import os
 from pathlib import Path
 
 import emcee
+import matplotlib
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from scipy import stats
@@ -522,166 +527,6 @@ def build_larger_amiga_sample(
     return combined, mass_size_fit, d25_mode, sample_metadata
 
 
-def plot_mass_size_calibration(
-    original_module,
-    analyzer,
-    combined_df: pd.DataFrame,
-    mass_size_fit: dict,
-    output_file: str,
-) -> None:
-    fig, ax = original_module.plt.subplots(figsize=(8.5, 8.0))
-
-    resolved_mask = combined_df["sample_origin"] == "resolved"
-    inferred_mask = combined_df["sample_origin"] == "inferred_jones"
-
-    resolved_log_mhi = np.log10(combined_df.loc[resolved_mask, "hi_mass"].to_numpy(float))
-    resolved_log_dhi = np.log10(combined_df.loc[resolved_mask, "hi_diameter_kpc"].to_numpy(float))
-
-    ax.scatter(
-        resolved_log_mhi,
-        resolved_log_dhi,
-        s=75,
-        facecolors="white",
-        edgecolors="black",
-        linewidths=1.5,
-        label="Resolved AMIGA",
-        zorder=3,
-    )
-
-    if inferred_mask.any():
-        inferred_log_mhi = np.log10(combined_df.loc[inferred_mask, "hi_mass"].to_numpy(float))
-        inferred_log_dhi = np.log10(
-            combined_df.loc[inferred_mask, "hi_diameter_kpc"].to_numpy(float)
-        )
-        ax.scatter(
-            inferred_log_mhi,
-            inferred_log_dhi,
-            s=45,
-            c="#c9a227",
-            marker="o",
-            alpha=0.45,
-            label="Jones-inferred AMIGA",
-            zorder=2,
-        )
-
-    combined_log_mhi = np.log10(combined_df["hi_mass"].to_numpy(float))
-    xfit = np.linspace(resolved_log_mhi.min(), combined_log_mhi.max(), 200)
-    yfit = mass_size_fit["intercept"] + mass_size_fit["slope"] * xfit
-    ax.plot(
-        xfit,
-        yfit,
-        color="#1d5378",
-        lw=2.6,
-        label=(
-            f"Bayesian fit (AMIGA+HCG+MIGHTEE+Wang+16): "
-            f"slope={mass_size_fit['slope']:.3f}, "
-            f"intercept={mass_size_fit['intercept']:.3f}"
-        ),
-        zorder=4,
-    )
-    ax.fill_between(
-        xfit,
-        yfit - mass_size_fit["scatter"],
-        yfit + mass_size_fit["scatter"],
-        color="0.7",
-        alpha=0.2,
-        zorder=1,
-        label=f"±1σ intrinsic scatter ({mass_size_fit['scatter']:.3f} dex)",
-    )
-
-    ax.set_xlabel(r"$\log\,(M_{\rm HI} / M_\odot)$", fontsize=22, labelpad=15)
-    ax.set_ylabel(r"$\log\,(D_{\rm HI} / {\rm kpc})$", fontsize=22, labelpad=15)
-    analyzer._style_axes(ax)
-    ax.legend(loc="lower right", fontsize=12, frameon=True)
-    original_module.plt.tight_layout()
-    output_path = original_module._figure_output_path(output_file)
-    original_module.plt.savefig(output_path, bbox_inches="tight", dpi=400)
-    original_module.plt.close(fig)
-    print(f"Saved: {output_path}")
-
-
-def plot_larger_sample_baseline(
-    original_module,
-    analyzer,
-    combined_df: pd.DataFrame,
-    output_file: str,
-) -> None:
-    fig, ax = original_module.plt.subplots(figsize=(9.2, 8.2))
-    resolved_mask = combined_df["sample_origin"] == "resolved"
-    inferred_mask = combined_df["sample_origin"] == "inferred_jones"
-
-    ax.scatter(
-        combined_df.loc[inferred_mask, "optical_diameter_kpc"],
-        combined_df.loc[inferred_mask, "hi_diameter_kpc"],
-        s=40,
-        c="#c9a227",
-        alpha=0.35,
-        label="Jones-inferred AMIGA only",
-        zorder=1,
-    )
-    ax.scatter(
-        combined_df.loc[resolved_mask, "optical_diameter_kpc"],
-        combined_df.loc[resolved_mask, "hi_diameter_kpc"],
-        s=75,
-        facecolors="white",
-        edgecolors="black",
-        linewidths=1.4,
-        label="Resolved AMIGA",
-        zorder=3,
-    )
-    ax.scatter(
-        analyzer.hcg_data["D_25"],
-        analyzer.hcg_data["D_HI"],
-        s=70,
-        marker="s",
-        facecolors="#4c78a8",
-        edgecolors="black",
-        alpha=0.55,
-        label="HCG",
-        zorder=2,
-    )
-
-    fit = analyzer.fit_results["amiga"]
-    x_grid = np.geomspace(
-        0.9 * min(combined_df["optical_diameter_kpc"].min(), analyzer.hcg_data["D_25"].min()),
-        1.1 * max(combined_df["optical_diameter_kpc"].max(), analyzer.hcg_data["D_25"].max()),
-        300,
-    )
-    log_grid = np.log10(x_grid)
-    y_grid = 10 ** (fit["intercept"] + fit["slope"] * log_grid)
-    sigma = fit["scatter"]
-
-    ax.plot(x_grid, y_grid, color="#d95f02", lw=2.8, label="Larger-sample OLS baseline", zorder=4)
-    ax.plot(
-        x_grid,
-        10 ** (fit["intercept"] + (fit["slope"] * log_grid) + sigma),
-        color="0.5",
-        lw=1.6,
-        ls="--",
-        zorder=1,
-    )
-    ax.plot(
-        x_grid,
-        10 ** (fit["intercept"] + (fit["slope"] * log_grid) - sigma),
-        color="0.5",
-        lw=1.6,
-        ls="--",
-        zorder=1,
-    )
-
-    ax.set_xscale("log")
-    ax.set_yscale("log")
-    ax.set_xlabel(r"$D_{25}$ [kpc]", fontsize=22, labelpad=15)
-    ax.set_ylabel(r"$D_{\rm HI}$ [kpc]", fontsize=22, labelpad=15)
-    analyzer._style_axes(ax)
-    ax.legend(loc="lower right", fontsize=12, frameon=True)
-    original_module.plt.tight_layout()
-    output_path = original_module._figure_output_path(output_file)
-    original_module.plt.savefig(output_path, bbox_inches="tight", dpi=400)
-    original_module.plt.close(fig)
-    print(f"Saved: {output_path}")
-
-
 def write_summary(
     summary_path: Path,
     results: dict,
@@ -845,6 +690,13 @@ def _fit_linmix(
     xsig = np.where(np.isfinite(log_x_err), np.maximum(log_x_err, 1e-6), 0.05)
     ysig = np.where(np.isfinite(log_y_err), np.maximum(log_y_err, 1e-6), 0.05)
     lm = linmix.LinMix(log_x, log_y, xsig=xsig, ysig=ysig, parallelize=False, seed=seed)
+    # Upstream linmix bug: with parallelize=False the `seed` argument is
+    # ignored and every serial chain gets an OS-entropy RandomState (only the
+    # multiprocessing branch wires the seed through). Re-seed each chain and
+    # redraw its initial guess so the fit is reproducible.
+    for i, chain in enumerate(lm._chains):
+        chain.rng = np.random.RandomState(seed + i)
+        chain.initial_guess()
     lm.run_mcmc(miniter=800, maxiter=1600, silent=True)
     slope_med = float(np.median(lm.chain["beta"]))
     intercept_med = float(np.median(lm.chain["alpha"]))
@@ -856,6 +708,7 @@ def _fit_hyperfit(
     log_y: np.ndarray,
     log_x_err: np.ndarray,
     log_y_err: np.ndarray,
+    seed: int = 42,
 ) -> tuple[float, float]:
     data = np.vstack([log_x, log_y])
     cov = np.zeros((2, 2, len(log_x)))
@@ -867,7 +720,20 @@ def _fit_hyperfit(
         (float(log_y.min() - 1.0), float(log_y.max() + 1.0)),
         (1e-6, 1.0),
     )
-    coords, _, _ = fit.optimize(bounds=bounds, tol=1e-6, verbose=False)
+    # hyperfit calls scipy's differential_evolution without a seed, and modern
+    # scipy then draws fresh OS entropy, making the fit nondeterministic. The
+    # RNG is not exposed through LinFit.optimize, so pin it by rebinding the
+    # module's differential_evolution reference for the duration of this call.
+    import functools
+
+    import hyperfit.linfit as _hf_linfit
+
+    _orig_de = _hf_linfit.differential_evolution
+    _hf_linfit.differential_evolution = functools.partial(_orig_de, rng=np.random.default_rng(seed))
+    try:
+        coords, _, _ = fit.optimize(bounds=bounds, tol=1e-6, verbose=False)
+    finally:
+        _hf_linfit.differential_evolution = _orig_de
     return float(coords[0]), float(coords[1])
 
 
@@ -922,6 +788,10 @@ def _fit_bayesian_emcee(
     pos[:, 2] = -1.0 + 1e-4 * rng.standard_normal(nwalkers)
 
     sampler = emcee.EnsembleSampler(nwalkers, ndim, log_posterior)
+    # Pin emcee's internal proposal RNG: it defaults to numpy's *global*
+    # RandomState, which made the chain -- and every number derived from the
+    # adopted baseline -- wobble in the third decimal between rebuilds.
+    sampler.random_state = np.random.RandomState(seed).get_state()
     sampler.run_mcmc(pos, 3000, progress=False)
     samples = sampler.get_chain(discard=800, thin=10, flat=True)
     p16, p50, p84 = np.percentile(samples, [16, 50, 84], axis=0)
@@ -978,7 +848,7 @@ def _run_single_method(
     elif method == "linmix (Kelly 2007)":
         slope, intercept = _fit_linmix(log_x, log_y, log_x_err, log_y_err, seed=seed)
     elif method == "HYPER-FIT":
-        slope, intercept = _fit_hyperfit(log_x, log_y, log_x_err, log_y_err)
+        slope, intercept = _fit_hyperfit(log_x, log_y, log_x_err, log_y_err, seed=seed)
     else:
         raise ValueError(f"Unknown fit method: {method}")
 
@@ -1111,7 +981,7 @@ def run_residual_trend_audit(
     style_fn,
     figure_output_path: Path,
     products_dir: Path,
-    suffix: str = "_kelley_larger_sample_dictionary",
+    suffix: str = "",
     random_seed: int = 42,
 ) -> dict[str, dict]:
     """Run the 9-method residual-trend audit on the larger AMIGA sample.
@@ -1133,6 +1003,10 @@ def run_residual_trend_audit(
     ]
     if missing:
         raise ValueError(f"combined_df is missing required columns for audit: {missing}")
+
+    # Some estimators (hyperfit's differential evolution, parts of linmix) draw
+    # from numpy's global RandomState; pin it so the audit is reproducible.
+    np.random.seed(random_seed)
 
     dhi = combined_df["hi_diameter_kpc"].to_numpy(float)
     d25 = combined_df["optical_diameter_kpc"].to_numpy(float)
@@ -1443,21 +1317,6 @@ def _write_trend_test_latex_fragments(
         handle.write("\n".join(eq_lines) + "\n")
 
     return table_path, eq_path
-
-
-# Surveys with a precisely characterised environment / interaction state, used
-# for the "well-defined" sample comparison plot. AMIGA = isolated baseline,
-# Pairs = Bok+20 ALFALFA-selected pairs (D_HI inferred from M_HI), HCGs =
-# compact groups, VIVA = Virgo cluster, Ursa Major = group, Hydra I = cluster
-# (Reynolds+22 WALLABY pilot).
-WELL_DEFINED_ENVIRONMENT_SURVEYS = (
-    "AMIGA",
-    "Pairs (Bok+20)",
-    "HCGs",
-    "VIVA",
-    "Ursa Major",
-    "Hydra I",
-)
 
 
 def register_hydra_i_survey(analyzer, csv_path: Path) -> int:
@@ -1810,25 +1669,23 @@ def _write_pairwise_residual_outputs(
     print(f"Wrote pairwise matrix fragment to {matrix_tex_path}")
 
 
-def plot_hydra_split_well_defined_residual(
+def write_survey_comparison_outputs(
     analyzer,
     hydra_csv_path: Path,
-    figure_output_file: str,
-    products_pdf_path: Path,
-    figures_dir: Path,
 ) -> None:
-    """Generate a well-defined-environment residual plot in which the Hydra I
-    sample is split into combined / cluster / infall / field subsets.
+    """Write the survey-comparison LaTeX fragments and pairwise-test products.
 
-    The figure is saved through the analyzer's standard plot machinery (i.e.
-    in ``figures_dir``), and a copy is placed at ``products_pdf_path`` so it
-    can be embedded directly in the standalone consistency-test report.
+    Restricts the analyzer to the well-defined-environment survey subset with
+    Hydra I split into combined/cluster/infall/field, recomputes the survey
+    residual statistics, and emits table:survey_residuals plus the pairwise
+    statistical-separation outputs. The analyzer's full survey registry is
+    restored afterwards.
     """
     full_surveys = analyzer.surveys
     full_stats = getattr(analyzer, "survey_stats", None)
 
     if "Hydra I" not in full_surveys:
-        print("  [warn] 'Hydra I' not in analyzer.surveys; skipping split plot.")
+        print("  [warn] 'Hydra I' not in analyzer.surveys; skipping survey tables.")
         return
 
     subsets = _build_hydra_environment_subsets(hydra_csv_path)
@@ -1848,13 +1705,6 @@ def plot_hydra_split_well_defined_residual(
     analyzer.surveys = selected
     try:
         analyzer.compute_survey_residuals()
-        analyzer.plot_survey_mean_residual(
-            rank_metric="median",
-            output_file=figure_output_file,
-            show=False,
-        )
-        # While the well-defined-plus-Hydra-split survey_stats are alive,
-        # write the LaTeX fragment that backs table:survey_residuals.
         _write_survey_residuals_latex_fragment(
             analyzer.survey_stats,
             HYDRA_SPLIT_WELL_DEFINED_SURVEYS,
@@ -1872,65 +1722,6 @@ def plot_hydra_split_well_defined_residual(
             ANALYSIS_PRODUCTS_DIR / "well_defined_pairwise_residuals.json",
             ANALYSIS_LATEX_DIR / "autogen" / "table_pairwise_residuals.tex",
         )
-        # Frac-truncated and frac-extended bar plots over the same
-        # well-defined-plus-Hydra-split subset; filenames derived from
-        # the median figure_output_file by swapping the metric stem.
-        out_name = Path(figure_output_file).name
-        frac_trunc_file = out_name.replace("median_residual", "frac_truncated")
-        frac_ext_file = out_name.replace("median_residual", "frac_extended")
-        analyzer.plot_survey_frac_truncated(output_file=frac_trunc_file, show=False)
-        analyzer.plot_survey_frac_extended(output_file=frac_ext_file, show=False)
-    finally:
-        analyzer.surveys = full_surveys
-        if full_stats is not None:
-            analyzer.survey_stats = full_stats
-
-    src = figures_dir / Path(figure_output_file).name
-    products_pdf_path.parent.mkdir(parents=True, exist_ok=True)
-    import shutil
-
-    shutil.copyfile(src, products_pdf_path)
-    print(f"Copied Hydra-split well-defined plot to {products_pdf_path}")
-
-
-def plot_well_defined_subset_median_residual(
-    analyzer,
-    output_file: str,
-    survey_names: tuple[str, ...] = WELL_DEFINED_ENVIRONMENT_SURVEYS,
-) -> None:
-    """Generate the median-residual plot for a well-defined-environment subset.
-
-    Snapshots the analyzer's full surveys/survey_stats, restricts to the
-    requested subset, recomputes residuals, calls plot_survey_mean_residual,
-    then restores the originals.
-    """
-    full_surveys = analyzer.surveys
-    full_stats = getattr(analyzer, "survey_stats", None)
-
-    available = [name for name in survey_names if name in full_surveys]
-    missing = [name for name in survey_names if name not in full_surveys]
-    if missing:
-        print(f"  [warn] missing surveys for well-defined subset: {missing}")
-    if not available:
-        print("  [warn] no well-defined surveys available, skipping plot.")
-        return
-
-    analyzer.surveys = {name: full_surveys[name] for name in available}
-    try:
-        analyzer.compute_survey_residuals()
-        analyzer.plot_survey_mean_residual(
-            rank_metric="median",
-            output_file=output_file,
-            show=False,
-        )
-        # Also produce frac_truncated and frac_extended bar plots over the
-        # same well-defined-environment subset.  Filenames are derived from
-        # the median-residual output_file by swapping the metric stem.
-        out_name = Path(output_file).name
-        frac_trunc_file = out_name.replace("median_residual", "frac_truncated")
-        frac_ext_file = out_name.replace("median_residual", "frac_extended")
-        analyzer.plot_survey_frac_truncated(output_file=frac_trunc_file, show=False)
-        analyzer.plot_survey_frac_extended(output_file=frac_ext_file, show=False)
     finally:
         analyzer.surveys = full_surveys
         if full_stats is not None:
@@ -1980,12 +1771,12 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--report-file",
-        default=str(ANALYSIS_PRODUCTS_DIR / "analysis_report_kelley_larger_sample.txt"),
+        default=str(ANALYSIS_PRODUCTS_DIR / "analysis_report.txt"),
         help="Text report path.",
     )
     parser.add_argument(
         "--summary-file",
-        default=str(ANALYSIS_PRODUCTS_DIR / "analysis_summary_kelley_larger_sample.json"),
+        default=str(ANALYSIS_PRODUCTS_DIR / "analysis_summary.json"),
         help="JSON summary path.",
     )
     parser.add_argument(
@@ -2014,8 +1805,6 @@ def main() -> None:
         "measure_hi_disk_sizes_for_larger_sample",
     )
 
-    original_module.FIGURE_OUTPUT_DIR = str(ANALYSIS_FIGURES_DIR)
-
     with original_module._redirect_output(
         args.report_file,
         echo_to_console=(not args.no_console),
@@ -2034,7 +1823,7 @@ def main() -> None:
         )
 
         print("=" * 60)
-        print("KELLEY LARGER-SAMPLE ANALYSIS")
+        print("ENLARGED AMIGA-SAMPLE RESIDUAL ANALYSIS")
         print("=" * 60)
         print(f"Resolved AMIGA sample: {np.sum(combined_df['sample_origin'] == 'resolved')}")
         print(
@@ -2084,7 +1873,6 @@ def main() -> None:
             f"MIGHTEE={mass_size_fit['n_mightee']}, Wang+16={mass_size_fit['n_wang16']})"
         )
 
-        analyzer.load_cig_stellar_masses(str(DATA_DIR / "angmom_final.csv"))
         results = analyzer.run_full_analysis(method="ols")
 
         # Replace the analyzer's OLS baseline with the adopted Bayesian emcee
@@ -2115,6 +1903,7 @@ def main() -> None:
             _log_d25_err = _fractional_to_log_error(_amiga_d25[_finite_mask], _d25_err_arr)
         else:
             _log_d25_err = None
+        np.random.seed(42)  # global-RNG consumers downstream stay reproducible
         _bayes = _fit_bayesian_emcee(
             _log_d25, _log_dhi, _log_dhi_err, seed=42, log_x_err=_log_d25_err
         )
@@ -2168,83 +1957,6 @@ def main() -> None:
         print(f"Pearson r (log D_25, log D_HI) on cleaned AMIGA: r = {_pearson.statistic:+.4f}")
 
         print("\n" + "=" * 60)
-        print("GENERATING LARGER-SAMPLE SPECIFIC FIGURES")
-        print("=" * 60)
-        plot_mass_size_calibration(
-            original_module,
-            analyzer,
-            combined_df,
-            mass_size_fit,
-            "amiga_mass_size_calibration_kelley_larger_sample.pdf",
-        )
-        plot_larger_sample_baseline(
-            original_module,
-            analyzer,
-            combined_df,
-            "diameter_correlation_larger_sample_overview_kelley_larger_sample.pdf",
-        )
-
-        print("\n" + "=" * 60)
-        print("GENERATING CORE PLOTS (KELLEY LARGER SAMPLE)")
-        print("=" * 60)
-        correlation_output_file = "diameter_correlation_kelley_larger_sample.pdf"
-        correlation_fig, correlation_ax = analyzer.plot_correlation(
-            output_file=correlation_output_file, show=False
-        )
-        d25_all = np.concatenate(
-            [
-                analyzer.amiga_data["D_25"],
-                analyzer.hcg_data["D_25"],
-            ]
-        )
-        dhi_all = np.concatenate(
-            [
-                analyzer.amiga_data["D_HI"],
-                analyzer.hcg_data["D_HI"],
-            ]
-        )
-        d25_all[np.isfinite(d25_all) & (d25_all > 0)]
-        dhi_finite = dhi_all[np.isfinite(dhi_all) & (dhi_all > 0)]
-        # correlation_ax.set_xlim(0.6 * d25_finite.min(), 1.4 * d25_finite.max())
-        correlation_ax.set_xlim(4, 100)
-        correlation_ax.set_ylim(
-            min(1.0, 0.5 * dhi_finite.min()),
-            max(1000.0, 1.8 * dhi_finite.max()),
-        )
-
-        import matplotlib.collections as _mcoll
-
-        for line in list(correlation_ax.lines):
-            line.remove()
-        for coll in list(correlation_ax.collections):
-            if isinstance(coll, _mcoll.PolyCollection):
-                coll.remove()
-
-        new_xlim = correlation_ax.get_xlim()
-        amiga_fit = analyzer.fit_results["amiga"]
-        fit_x = np.logspace(np.log10(new_xlim[0]), np.log10(new_xlim[1]), 300)
-        fit_logx = np.log10(fit_x)
-        fit_y = 10 ** (amiga_fit["intercept"] + amiga_fit["slope"] * fit_logx)
-        sigma = amiga_fit["scatter"]
-        fit_y_1up = 10 ** (amiga_fit["intercept"] + amiga_fit["slope"] * fit_logx + sigma)
-        fit_y_1lo = 10 ** (amiga_fit["intercept"] + amiga_fit["slope"] * fit_logx - sigma)
-        fit_y_3up = 10 ** (amiga_fit["intercept"] + amiga_fit["slope"] * fit_logx + 3 * sigma)
-        fit_y_3lo = 10 ** (amiga_fit["intercept"] + amiga_fit["slope"] * fit_logx - 3 * sigma)
-        correlation_ax.fill_between(fit_x, fit_y_1lo, fit_y_1up, color="gray", alpha=0.2, zorder=1)
-        correlation_ax.plot(fit_x, fit_y_3up, "k--", linewidth=1, alpha=0.5, zorder=1)
-        correlation_ax.plot(fit_x, fit_y_3lo, "k--", linewidth=1, alpha=0.5, zorder=1)
-        correlation_ax.plot(fit_x, fit_y, "k-", linewidth=2.5, zorder=2)
-        correlation_ax.plot(fit_x, fit_x, "k:", linewidth=1, alpha=0.5, zorder=1)
-
-        correlation_fig.tight_layout()
-        correlation_fig.savefig(
-            original_module._figure_output_path(correlation_output_file),
-            bbox_inches="tight",
-            dpi=150,
-        )
-        original_module.plt.close(correlation_fig)
-
-        print("\n" + "=" * 60)
         print("AMIGA GALAXIES BEYOND ±3σ OF THE ADOPTED BAYESIAN BASELINE")
         print("=" * 60)
         _baseline_sigma = float(analyzer.fit_results["amiga"]["scatter"])
@@ -2287,7 +1999,7 @@ def main() -> None:
                 "residual_in_sigma": amiga_residuals_baseline[outlier_mask] / _baseline_sigma,
             }
         ).sort_values("residual_dex")
-        outliers_path = ANALYSIS_PRODUCTS_DIR / "amiga_beyond_3sigma_kelley_larger_sample.csv"
+        outliers_path = ANALYSIS_PRODUCTS_DIR / "amiga_beyond_3sigma.csv"
         outliers_df.to_csv(outliers_path, index=False)
         if n_outliers:
             for _, row in outliers_df.iterrows():
@@ -2616,14 +2328,10 @@ def main() -> None:
             f"baseline predicts at fixed D_25)"
         )
 
-        hcg_residuals_path = (
-            ANALYSIS_PRODUCTS_DIR / "hcg_residual_statistics_kelley_larger_sample.json"
-        )
+        hcg_residuals_path = ANALYSIS_PRODUCTS_DIR / "hcg_residual_statistics.json"
         with open(hcg_residuals_path, "w", encoding="utf-8") as handle:
             json.dump(hcg_stats, handle, indent=2)
-        hcg_per_galaxy_path = (
-            ANALYSIS_PRODUCTS_DIR / "hcg_residuals_per_galaxy_kelley_larger_sample.csv"
-        )
+        hcg_per_galaxy_path = ANALYSIS_PRODUCTS_DIR / "hcg_residuals_per_galaxy.csv"
         pd.DataFrame(
             {
                 "galaxy": np.asarray(analyzer.hcg_data.get("name", [""] * len(hcg_residuals))),
@@ -2780,269 +2488,6 @@ def main() -> None:
         print(f"LaTeX HCG macros fragment:       {macros_path}")
         print(f"LaTeX phase-stats fragment:      {phase_table_path}")
 
-        analyzer.plot_residuals_histogram(
-            output_file="diameter_residuals_hist_kelley_larger_sample.pdf", show=False
-        )
-
-        # Replace the count-based residual histogram with a density-normalised
-        # version so that AMIGA (N=407) and HCG (N=54) can be compared on
-        # equal footing. Sample sizes are reported in the legend; everything
-        # else (phase stacking, hatching, mean lines, offset annotation)
-        # mirrors the count-based histogram produced by the analyzer.
-        from matplotlib.patches import Patch as _Patch
-
-        hist_res_amiga = np.asarray(analyzer.fit_results["residuals_amiga"], dtype=float)
-        hist_res_amiga = hist_res_amiga[np.isfinite(hist_res_amiga)]
-        hist_res_hcg = np.asarray(analyzer.fit_results["residuals_hcg"], dtype=float)
-        hist_res_hcg = hist_res_hcg[np.isfinite(hist_res_hcg)]
-        hist_phases = np.asarray(analyzer.hcg_data["phase"], dtype=str)
-        # Trim phases to align with finite residuals
-        hist_phases = hist_phases[: hist_res_hcg.size]
-
-        all_res_arr = np.concatenate([hist_res_amiga, hist_res_hcg])
-        bins = np.linspace(np.min(all_res_arr) - 0.1, np.max(all_res_arr) + 0.1, 20)
-        bin_width = bins[1] - bins[0]
-
-        n_amiga = int(hist_res_amiga.size)
-        n_hcg = int(hist_res_hcg.size)
-        1.0 / (n_amiga * bin_width)
-        density_norm_hcg = 1.0 / (n_hcg * bin_width)
-
-        phase_order = ["1", "2", "3a", "3c"]
-        phase_colors = {
-            "1": "#a6cee3",
-            "2": "#8fbc8f",
-            "3a": "#c4a6d6",
-            "3c": "#f4b07c",
-        }
-        phase_labels = {
-            "1": "Phase 1",
-            "2": "Phase 2",
-            "3a": "Phase 3a",
-            "3c": "Phase 3c",
-        }
-
-        hist_fig, hist_ax = original_module.plt.subplots(figsize=(10, 8))
-
-        bottom = np.zeros(len(bins) - 1)
-        phases_present = []
-        for phase in phase_order:
-            mask = hist_phases == phase
-            if int(np.sum(mask)) == 0:
-                continue
-            counts, _ = np.histogram(hist_res_hcg[mask], bins=bins)
-            heights = counts * density_norm_hcg
-            hist_ax.bar(
-                bins[:-1],
-                heights,
-                width=bin_width,
-                bottom=bottom,
-                align="edge",
-                color=phase_colors[phase],
-                edgecolor="none",
-                linewidth=0,
-                zorder=2,
-            )
-            bottom += heights
-            phases_present.append(phase)
-
-        hist_ax.hist(
-            hist_res_hcg,
-            bins=bins,
-            density=True,
-            histtype="stepfilled",
-            facecolor="none",
-            edgecolor="none",
-            hatch=".",
-            linewidth=0,
-            zorder=3,
-        )
-        hist_ax.hist(
-            hist_res_hcg,
-            bins=bins,
-            density=True,
-            histtype="step",
-            linewidth=2.5,
-            edgecolor="blue",
-            zorder=4,
-        )
-
-        hist_ax.hist(
-            hist_res_amiga,
-            bins=bins,
-            density=True,
-            histtype="stepfilled",
-            facecolor="white",
-            edgecolor="none",
-            hatch="/",
-            linewidth=0,
-            zorder=5,
-            alpha=0.7,
-        )
-        hist_ax.hist(
-            hist_res_amiga,
-            bins=bins,
-            density=True,
-            histtype="step",
-            linewidth=2.5,
-            edgecolor="black",
-            zorder=6,
-        )
-
-        mean_amiga = float(np.mean(hist_res_amiga))
-        mean_hcg = float(np.mean(hist_res_hcg))
-        hist_ax.axvline(mean_amiga, color="black", linestyle="--", linewidth=2, zorder=7)
-        hist_ax.axvline(mean_hcg, color="blue", linestyle="--", linewidth=2, zorder=7)
-        hist_ax.axvline(0, color="gray", linestyle=":", linewidth=1.5, zorder=1)
-
-        hist_ax.set_xlabel(r"$\Delta \log(D_{\rm HI})$ [dex]", fontsize=22, labelpad=15)
-        hist_ax.set_ylabel(r"Probability density [dex$^{-1}$]", fontsize=22, labelpad=15)
-        hist_ax.minorticks_on()
-        hist_ax.tick_params(which="both", direction="in", top=True, right=True)
-        hist_ax.tick_params(which="major", length=8, width=1.2, pad=10)
-        hist_ax.tick_params(which="minor", length=4, width=1, pad=10)
-
-        hcg_handle = _Patch(
-            facecolor="none",
-            edgecolor="blue",
-            hatch=".",
-            linewidth=1.2,
-            label=f"Galaxies in HCGs (N={n_hcg})",
-        )
-        amiga_handle = _Patch(
-            facecolor="white",
-            edgecolor="black",
-            hatch="/",
-            linewidth=1.2,
-            label=f"AMIGA galaxies (N={n_amiga})",
-        )
-        mean_handles = [
-            original_module.plt.Line2D(
-                [0],
-                [0],
-                color="black",
-                linestyle="--",
-                linewidth=2,
-                label=f"AMIGA mean: {mean_amiga:+.2f}",
-            ),
-            original_module.plt.Line2D(
-                [0],
-                [0],
-                color="blue",
-                linestyle="--",
-                linewidth=2,
-                label=f"HCG mean: {mean_hcg:+.2f}",
-            ),
-        ]
-        main_legend = hist_ax.legend(
-            handles=[hcg_handle, amiga_handle, *mean_handles],
-            loc="upper left",
-            fontsize=15,
-            frameon=True,
-        )
-        hist_ax.add_artist(main_legend)
-
-        phase_handles = [
-            _Patch(
-                facecolor=phase_colors[p],
-                edgecolor="blue",
-                linewidth=1.2,
-                label=phase_labels[p],
-            )
-            for p in phases_present
-        ]
-        phase_leg = hist_ax.legend(
-            handles=phase_handles,
-            title="HCG phases",
-            title_fontsize=17,
-            fontsize=15,
-            frameon=True,
-            framealpha=0.9,
-            edgecolor="0.6",
-            loc="center right",
-            bbox_to_anchor=(0.99, 0.35),
-        )
-        hist_ax.add_artist(phase_leg)
-
-        offset = mean_hcg - mean_amiga
-        hist_ax.annotate(
-            f"Offset: {offset:+.2f} dex",
-            xy=(0.97, 0.97),
-            xycoords="axes fraction",
-            fontsize=15,
-            ha="right",
-            va="top",
-            bbox=dict(boxstyle="round", facecolor="white", alpha=0.8),
-        )
-
-        hist_fig.tight_layout()
-        hist_fig.savefig(
-            original_module._figure_output_path("diameter_residuals_hist_kelley_larger_sample.pdf"),
-            bbox_inches="tight",
-            dpi=150,
-        )
-        original_module.plt.close(hist_fig)
-
-        residuals_vs_d25_output_file = "diameter_residuals_vs_D25_kelley_larger_sample.pdf"
-        resid_fig, resid_ax = analyzer.plot_residuals_vs_D25(
-            output_file=residuals_vs_d25_output_file, show=False
-        )
-        resid_fig.set_size_inches(8, 8)
-        for line in list(resid_ax.lines):
-            line.remove()
-        for coll in list(resid_ax.collections):
-            if isinstance(coll, _mcoll.PolyCollection):
-                coll.remove()
-
-        resid_ax.set_xlim(4, 100)
-        resid_ax.set_ylim(-1.5, 1.5)
-        resid_sigma = analyzer.fit_results["amiga"]["scatter"]
-        resid_x = np.logspace(np.log10(4), np.log10(100), 300)
-        resid_ax.fill_between(
-            resid_x,
-            -resid_sigma,
-            resid_sigma,
-            color="gray",
-            alpha=0.2,
-            zorder=1,
-        )
-        resid_ax.plot(
-            resid_x,
-            np.full_like(resid_x, 3 * resid_sigma),
-            "k--",
-            linewidth=1,
-            alpha=0.5,
-            zorder=1,
-        )
-        resid_ax.plot(
-            resid_x,
-            np.full_like(resid_x, -3 * resid_sigma),
-            "k--",
-            linewidth=1,
-            alpha=0.5,
-            zorder=1,
-        )
-        resid_ax.axhline(0, color="black", linestyle="-", linewidth=2, zorder=2)
-
-        old_legend = resid_ax.get_legend()
-        if old_legend is not None:
-            old_legend.remove()
-        resid_ax.legend(loc="upper right", fontsize=14, frameon=True, framealpha=0.9)
-
-        for text_obj in resid_ax.texts:
-            text_obj.set_linespacing(1.8)
-
-        resid_fig.tight_layout()
-        resid_fig.savefig(
-            original_module._figure_output_path(residuals_vs_d25_output_file),
-            bbox_inches="tight",
-            dpi=150,
-        )
-        original_module.plt.close(resid_fig)
-        analyzer.plot_residuals_by_phase(
-            output_file="diameter_residuals_by_phase_kelley_larger_sample.pdf", show=False
-        )
-
         analyzer.load_wang_table(str(DATA_DIR / "wang-surveys-table.txt"))
         analyzer.load_broeils_rhee(str(DATA_DIR / "broelis-rhee.txt"), survey_name="B97")
         analyzer.register_surveys()
@@ -3057,75 +2502,16 @@ def main() -> None:
         )
         analyzer.compute_survey_residuals()
 
-        print("\n" + "=" * 60)
-        print("GENERATING SURVEY COMPARISON PLOTS (KELLEY LARGER SAMPLE)")
-        print("=" * 60)
-        analyzer.plot_survey_mean_residual(
-            rank_metric="median",
-            output_file="survey_median_residual_kelley_larger_sample.pdf",
-            show=False,
-        )
-        plot_well_defined_subset_median_residual(
-            analyzer,
-            output_file="survey_median_residual_kelley_larger_well_defined_sample.pdf",
-        )
-        # This call also emits table_survey_residuals.tex, table_pairwise_residuals.tex,
-        # and well_defined_pairwise_residuals.json, so it must run. Its FIGURE,
-        # however, is the older red-star design; the production Figure 8 (top) is
-        # owned by scripts/plot_survey_residual_forest.py (the fig_survey_forest
-        # rule), which draws the HCG point as a marker with a directional arrow.
-        # We therefore send this figure to a throwaway filename so it cannot
-        # overwrite the production Figure 8.
-        plot_hydra_split_well_defined_residual(
+        # Emits table_survey_residuals.tex, table_pairwise_residuals.tex, and
+        # well_defined_pairwise_residuals.json over the well-defined-environment
+        # survey subset with Hydra I split into cluster/infall/field.
+        write_survey_comparison_outputs(
             analyzer,
             hydra_csv_path=DATA_DIR / "reynolds_hyperleda_detection_matches.csv",
-            figure_output_file="survey_median_residual_legacy_hydra_split.pdf",
-            products_pdf_path=ANALYSIS_PRODUCTS_DIR
-            / "mass_size_consistency_test_standalone_hydra_split.pdf",
-            figures_dir=ANALYSIS_FIGURES_DIR,
-        )
-        analyzer.plot_survey_frac_extended(
-            output_file="survey_frac_extended_kelley_larger_sample.pdf", show=False
-        )
-        analyzer.plot_survey_frac_truncated(
-            output_file="survey_frac_truncated_kelley_larger_sample.pdf", show=False
-        )
-        analyzer.plot_correlation_with_all_surveys(
-            output_file="diameter_correlation_with_all_surveys_kelley_larger_sample.pdf",
-            show=False,
-        )
-
-        print("\n" + "=" * 60)
-        print("GENERATING MASS-RELATED DIAGNOSTICS (KELLEY LARGER SAMPLE)")
-        print("=" * 60)
-        analyzer.plot_residuals_vs_stellar_mass(
-            output_file="residuals_vs_stellar_mass_kelley_larger_sample.pdf", show=False
-        )
-        analyzer.plot_residuals_vs_hi_mass(
-            output_file="residuals_vs_hi_mass_kelley_larger_sample.pdf", show=False
-        )
-        analyzer.plot_residuals_vs_gas_fraction(
-            output_file="residuals_vs_gas_fraction_kelley_larger_sample.pdf", show=False
         )
 
         focused = analyzer.run_focused_comparison()
         results["focused"] = focused
-
-        print("\n" + "=" * 60)
-        print("GENERATING FOCUSED COMPARISON PLOTS (KELLEY LARGER SAMPLE)")
-        print("=" * 60)
-        analyzer.plot_truncation_index_by_phase(
-            output_file="truncation_index_by_phase_kelley_larger_sample.pdf", show=False
-        )
-        analyzer.plot_size_matched_comparison(
-            output_file="size_matched_comparison_kelley_larger_sample.pdf", show=False
-        )
-        analyzer.plot_binned_residuals_comparison(
-            output_file="binned_residuals_comparison_kelley_larger_sample.pdf", show=False
-        )
-        analyzer.plot_bootstrap_shift_distribution(
-            output_file="bootstrap_shift_distribution_kelley_larger_sample.pdf", show=False
-        )
 
         print("\n" + "=" * 60)
         print("RESIDUAL-TREND AUDIT (9 FIT METHODS, BAYESIAN REPLACES SIGMA-CLIPPED OLS)")
@@ -3134,25 +2520,22 @@ def main() -> None:
             "Data: combined AMIGA resolved + Jones-inferred single-dish "
             f"(N={len(combined_df)}), shown with a single symbol per panel."
         )
-        trend_fig_path = (
-            ANALYSIS_FIGURES_DIR / "amiga_residual_trends_kelley_larger_sample_dictionary.pdf"
-        )
+        trend_fig_path = ANALYSIS_FIGURES_DIR / "amiga_residual_trends.pdf"
         run_residual_trend_audit(
             combined_df=combined_df,
-            plt_module=original_module.plt,
+            plt_module=plt,
             style_fn=analyzer._style_axes,
             figure_output_path=trend_fig_path,
             products_dir=ANALYSIS_PRODUCTS_DIR,
-            suffix="_kelley_larger_sample_dictionary",
         )
 
         combined_df.to_csv(
-            ANALYSIS_PRODUCTS_DIR / "amiga_combined_larger_sample_kelley_larger_sample.csv",
+            ANALYSIS_PRODUCTS_DIR / "amiga_combined_larger_sample.csv",
             index=False,
         )
         inferred_only = combined_df[combined_df["sample_origin"] == "inferred_jones"].copy()
         inferred_only.to_csv(
-            ANALYSIS_PRODUCTS_DIR / "amiga_inferred_jones_kelley_larger_sample.csv",
+            ANALYSIS_PRODUCTS_DIR / "amiga_inferred_jones.csv",
             index=False,
         )
         write_summary(
@@ -3165,7 +2548,7 @@ def main() -> None:
         )
 
         print("\n" + "=" * 60)
-        print("KELLEY LARGER-SAMPLE ANALYSIS COMPLETE")
+        print("ENLARGED-SAMPLE RESIDUAL ANALYSIS COMPLETE")
         print("=" * 60)
         print(f"  - Larger-sample AMIGA baseline: D_HI ∝ D_25^{results['amiga']['slope']:.2f}")
         print(f"  - Larger-sample AMIGA scatter: {results['amiga']['scatter']:.3f} dex")

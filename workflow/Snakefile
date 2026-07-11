@@ -30,12 +30,12 @@ ANALYSIS_FIGURES = [
     "figures/mass_size_relation_all_surveys.pdf",
     "figures/mass_size_relation_all_surveys_corner.pdf",
     "figures/mass_size_relation_amiga_hcgs.pdf",
-    "figures/amiga_residual_trends_kelley_larger_sample_dictionary.pdf",
-    "figures/diameter_residuals_hist_kelley_larger_sample.pdf",
-    "figures/diameter_residuals_by_phase_kelley_larger_sample.pdf",
-    "figures/diameter_correlation_kelley_larger_sample.pdf",
-    "figures/diameter_residuals_vs_D25_kelley_larger_sample.pdf",
-    "figures/survey_median_residual_kelley_larger_well_defined_sample_hydra_split.pdf",
+    "figures/amiga_residual_trends.pdf",
+    "figures/diameter_residuals_hist.pdf",
+    "figures/diameter_residuals_by_phase.pdf",
+    "figures/diameter_correlation.pdf",
+    "figures/diameter_residuals_vs_D25.pdf",
+    "figures/survey_median_residual.pdf",
     "figures/pairwise_clique_euler_vertical.pdf",
 ]
 

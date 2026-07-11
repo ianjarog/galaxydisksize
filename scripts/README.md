@@ -39,10 +39,10 @@ reference.
 | Script | Produces |
 |---|---|
 | `plot_diameter_correlation.py` | correlation and residual-vs-D_25 panels |
-| `plot_residual_histogram.py` | residual histogram (`--promote`) |
-| `plot_residuals_by_phase.py` | residuals by phase (`--promote`) |
-| `plot_survey_residual_forest.py` | survey forest plot (`--promote`) |
-| `plot_pairwise_clique_euler.py` | pairwise-clique Euler diagram (`--promote`) |
+| `plot_residual_histogram.py` | residual histogram (Fig. 6) |
+| `plot_residuals_by_phase.py` | residuals by phase (Fig. 7) |
+| `plot_survey_residual_forest.py` | survey forest plot (Fig. 8 top) |
+| `plot_pairwise_clique_euler.py` | pairwise-clique Euler diagram (Fig. 8 bottom) |
 
 ## Notes on the two residual scripts
 

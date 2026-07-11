@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
-"""
-INVESTIGATION SCRIPT -- Bmaj upper limits for ALL HI-undetected HCG members
-===========================================================================
+"""Beam-size (Bmaj) upper limits for all HI-undetected HCG members.
 
-What changed vs the previous upper-limit script
-------------------------------------------------
-1. UPPER-LIMIT DEFINITION: now the beam MAJOR AXIS (Bmaj) instead of the
-   geometric mean sqrt(Bmaj*Bmin).  Applied to EVERY upper limit, including
-   the Phase-3a/3c non-detections done previously.
+Upper-limit definition
+----------------------
+1. The upper limit is the beam MAJOR AXIS (Bmaj), not the geometric mean
+   sqrt(Bmaj*Bmin).  Applied to EVERY upper limit, including the Phase-3a/3c
+   non-detections.
 2. SAMPLE: the original 22 (HCG30/37/62/92/97) PLUS 48 additional clean
    member non-detections vetted against Jones et al. (2023) Sect. 3 +
    the project yaml notes (false groups / unreliable cubes / non-members
@@ -26,7 +24,6 @@ Non-destructive
 * Writes ONLY new files:
     data/upperlimits_bmaj_provenance.csv
     data/interacting_galaxies_results_with_upperlimits_bmaj.csv
-* Figure: backs up the existing PDFs before overwriting.
 
 Run
 ---
@@ -37,7 +34,6 @@ Run
 import argparse
 import json
 import math
-import shutil
 from pathlib import Path
 
 import numpy as np
@@ -63,13 +59,6 @@ OLD_PROVENANCE = DATA_DIR / "phase3_upperlimits_provenance.csv"  # reuse cache
 NEW_PROVENANCE = DATA_DIR / "upperlimits_bmaj_provenance.csv"
 NEW_AUG_CSV = DATA_DIR / "interacting_galaxies_results_with_upperlimits_bmaj.csv"
 
-# persisted canonical products (for faithful figure reproduction)
-AMIGA_RESID_CSV = PRODUCTS_DIR / "amiga_residuals_per_galaxy_kelley_larger_sample_dictionary.csv"
-HCG_RESID_CSV = PRODUCTS_DIR / "hcg_residuals_per_galaxy_kelley_larger_sample.csv"
-BASELINE_JSON = PRODUCTS_DIR / "hcg_residual_statistics_kelley_larger_sample.json"
-
-FIGURE_NAME = "diameter_residuals_by_phase_kelley_larger_sample.pdf"
-VARIANT_NAME = "diameter_residuals_by_phase_kelley_larger_sample_with_upperlimits.pdf"
 HYPERLEDA_CATALOG = "VII/237"
 
 # ---------------------------------------------------------------------------
@@ -300,199 +289,15 @@ def write_augmented_csv(prov):
 # ---------------------------------------------------------------------------
 # Step 3: figure (persisted baseline + residuals; new Bmaj upper limits)
 # ---------------------------------------------------------------------------
-def replot(prov):
-    import matplotlib
-
-    matplotlib.use("Agg")
-    import matplotlib.pyplot as plt
-
-    baseline = json.load(open(BASELINE_JSON))
-    b_slope = float(baseline["baseline_slope"])
-    b_int = float(baseline["baseline_intercept"])
-    scatter = float(baseline["baseline_sigma"])
-    print(f"[baseline] slope={b_slope:.4f} intercept={b_int:.4f} sigma={scatter:.4f}")
-
-    res_amiga = pd.read_csv(AMIGA_RESID_CSV)["resid_Bayesian"].to_numpy(float)
-    res_amiga = res_amiga[np.isfinite(res_amiga)]
-
-    # Single source of truth: the augmented CSV (53 detections + 73 Bmaj upper
-    # limits, the 3 beam-limited members already reclassified). Residuals are
-    # recomputed from the SAME persisted baseline used by survival_analysis, so
-    # this figure cannot diverge from the censored macros/tables.
-    aug = pd.read_csv(NEW_AUG_CSV)
-    aug = aug[aug["optical_diameter_kpc"] > 0].copy()
-    phase_all = aug["phase"].astype(str).str.strip().to_numpy()
-    resid_all = np.log10(aug["hi_diameter_kpc"].to_numpy(float)) - (
-        b_int + b_slope * np.log10(aug["optical_diameter_kpc"].to_numpy(float))
-    )
-    is_ul_all = aug["is_upper_limit"].astype(bool).to_numpy()
-    # Drop points with no finite residual (e.g. HCG7b, optical size unreliable).
-    finite = np.isfinite(resid_all)
-    if (~finite).sum():
-        print(
-            f"[drop] {int((~finite).sum())} upper limit(s) with no reliable optical "
-            f"diameter excluded from figure"
-        )
-    phase_all, resid_all, is_ul_all = phase_all[finite], resid_all[finite], is_ul_all[finite]
-    print(
-        f"[check] HCG points: {resid_all.size} "
-        f"({int(is_ul_all.sum())} upper limits + {int((~is_ul_all).sum())} detections)"
-    )
-
-    fig, ax = plt.subplots(figsize=(10, 8))
-    phases = ["1", "2", "3c", "3a"]
-    pcol = {"1": "#1f77b4", "2": "#2ca02c", "3a": "#9467bd", "3c": "#ff7f0e"}
-
-    # Kaplan-Meier median per phase (left-censored upper limits); boxes are drawn
-    # from DETECTIONS ONLY so the quartiles are not biased by treating a limit
-    # "<x" as a measurement "=x". KM medians (or upper bounds) are overlaid.
-    import sys
-
-    sys.path.insert(0, str(Path(__file__).resolve().parent))
-    from survival_analysis import km_left_censored
-
-    # box data = detections only; groups keep (all resid, ul mask) for scatter/KM
-    data_list, labels, colors = [res_amiga], ["AMIGA\n(isolated)"], ["white"]
-    groups = [(res_amiga, np.zeros(res_amiga.size, bool))]
-    km_markers = [None]  # (median, defined) per box position, None => skip
-    for ph in phases:
-        m = phase_all == ph
-        if np.sum(m) >= 2:
-            det = resid_all[m][~is_ul_all[m]]
-            data_list.append(det if det.size else resid_all[m])
-            n_lim = int(is_ul_all[m].sum())
-            labels.append(f"Phase {ph}\n(n={int(m.sum())}" + (f", {n_lim} lim)" if n_lim else ")"))
-            colors.append(pcol.get(ph, "gray"))
-            groups.append((resid_all[m], is_ul_all[m]))
-            km = km_left_censored(resid_all[m], is_ul_all[m])
-            if np.isfinite(km["median"]):
-                km_markers.append((km["median"], True))
-            else:
-                km_markers.append((float(np.median(resid_all[m])), False))  # upper bound
-
-    positions = np.arange(len(data_list))
-    bp = ax.boxplot(data_list, positions=positions, widths=0.6, patch_artist=True, notch=False)
-    for patch, c in zip(bp["boxes"], colors):
-        patch.set_facecolor(c)
-        patch.set_alpha(0.5)
-
-    # KM medians (filled red diamond) / upper bounds (open diamond + down-arrow)
-    km_done = bound_done = False
-    for i, mk in enumerate(km_markers):
-        if mk is None:
-            continue
-        val, defined = mk
-        if defined:
-            ax.scatter(
-                i,
-                val,
-                marker="D",
-                s=110,
-                c="red",
-                edgecolors="black",
-                zorder=6,
-                label=None if km_done else "KM median",
-            )
-            km_done = True
-        else:
-            ax.scatter(
-                i,
-                val,
-                marker="D",
-                s=110,
-                facecolors="none",
-                edgecolors="red",
-                linewidths=2,
-                zorder=6,
-                label=None if bound_done else "KM median (upper bound)",
-            )
-            bound_done = True
-            ax.annotate(
-                "",
-                xy=(i, val - 0.12),
-                xytext=(i, val),
-                arrowprops=dict(arrowstyle="-|>", color="red", lw=2),
-                zorder=6,
-            )
-
-    rng = np.random.default_rng(0)
-    det_done = lim_done = False
-    for i, (data, ul) in enumerate(groups):
-        x = rng.normal(i, 0.08, size=len(data))
-        base_c = "black" if colors[i] == "white" else colors[i]
-        det = ~ul
-        if np.any(det):
-            ax.scatter(
-                x[det],
-                data[det],
-                alpha=0.6,
-                s=40,
-                c=base_c,
-                edgecolors="black",
-                linewidths=0.5,
-                zorder=3,
-                label=None if det_done else "Detections",
-            )
-            det_done = True
-        if np.any(ul):
-            ax.scatter(
-                x[ul],
-                data[ul],
-                marker="v",
-                s=90,
-                facecolors="none",
-                edgecolors=base_c,
-                linewidths=1.6,
-                zorder=4,
-                label=None if lim_done else "Upper limits",
-            )
-            lim_done = True
-            for xi, yi in zip(x[ul], data[ul]):
-                ax.annotate(
-                    "",
-                    xy=(xi, yi - 0.10),
-                    xytext=(xi, yi),
-                    arrowprops=dict(arrowstyle="-|>", color=base_c, lw=1.4),
-                    zorder=4,
-                )
-
-    ax.axhline(0, color="black", lw=2, zorder=1)
-    ax.axhline(scatter, color="gray", ls="--", lw=1.5, alpha=0.7)
-    ax.axhline(-scatter, color="gray", ls="--", lw=1.5, alpha=0.7)
-    ax.set_xticks(positions)
-    ax.set_xticklabels(labels, fontsize=16)
-    ax.set_ylabel(r"$\Delta \log(D_{\rm HI})$ [dex]", fontsize=22, labelpad=15)
-    ax.set_xlabel("Sample / HCG Phase", fontsize=22, labelpad=15)
-    ax.minorticks_on()
-    ax.tick_params(which="both", direction="in", top=True, right=True)
-    ax.tick_params(which="major", length=8, width=1.2, pad=10)
-    ax.tick_params(which="minor", length=4, width=1, pad=10)
-    ax.tick_params(axis="x", which="minor", bottom=False)
-    ax.legend(loc="lower left", fontsize=14, frameon=True, framealpha=0.9)
-    fig.tight_layout()
-
-    for name in (FIGURE_NAME, VARIANT_NAME):
-        out = FIGURES_DIR / name
-        if out.exists():
-            bak = FIGURES_DIR / name.replace(".pdf", "_sqrtbeam_backup.pdf")
-            if not bak.exists():
-                shutil.copy2(out, bak)
-                print(f"[backup] {out.name} -> {bak.name}")
-        fig.savefig(out, bbox_inches="tight", dpi=400)
-        print(f"[saved] {out}")
-    plt.close(fig)
-
-
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--no-network", action="store_true")
     args = ap.parse_args()
     print("=" * 72)
-    print("Bmaj UPPER LIMITS for all HI-undetected HCG members + residual replot")
+    print("Bmaj UPPER LIMITS for all HI-undetected HCG members")
     print("=" * 72)
     prov = build_provenance(use_network=not args.no_network)
     write_augmented_csv(prov)
-    replot(prov)
     print("\nDone. No fitted value and no existing data file was overwritten.")
 
 

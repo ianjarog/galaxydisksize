@@ -1,8 +1,7 @@
 # Figure tier: the adopted-design residual figures and the overlay panels.
 #
-# The three "promote" figures below were the ones overwritten in the original
-# tree because two different scripts wrote the same filenames. Here each figure
-# has a single owning rule, so Snakemake will not allow that to happen again.
+# Each figure below has exactly one owning rule (and each script writes only
+# its declared outputs), so two rules can never overwrite the same file.
 
 INT_UL = config["measurements"]["interacting_upper_limits"]
 
@@ -10,8 +9,8 @@ INT_UL = config["measurements"]["interacting_upper_limits"]
 # which reads the augmented upper-limit CSV plus the residual products.
 _SURVIVAL_INPUTS = [
     INT_UL,
-    "products/hcg_residual_statistics_kelley_larger_sample.json",
-    "products/amiga_residuals_per_galaxy_kelley_larger_sample_dictionary.csv",
+    "products/hcg_residual_statistics.json",
+    "products/amiga_residuals_per_galaxy.csv",
 ]
 
 
@@ -21,9 +20,9 @@ rule fig_residuals_hist:
         script="scripts/plot_residual_histogram.py",
         survival=_SURVIVAL_INPUTS,
     output:
-        "figures/diameter_residuals_hist_kelley_larger_sample.pdf",
+        "figures/diameter_residuals_hist.pdf",
     shell:
-        "{PYTHON} {input.script} --promote"
+        "{PYTHON} {input.script}"
 
 
 rule fig_residuals_by_phase:
@@ -32,9 +31,9 @@ rule fig_residuals_by_phase:
         script="scripts/plot_residuals_by_phase.py",
         survival=_SURVIVAL_INPUTS,
     output:
-        "figures/diameter_residuals_by_phase_kelley_larger_sample.pdf",
+        "figures/diameter_residuals_by_phase.pdf",
     shell:
-        "{PYTHON} {input.script} --promote"
+        "{PYTHON} {input.script}"
 
 
 rule fig_survey_forest:
@@ -44,9 +43,9 @@ rule fig_survey_forest:
         survival=_SURVIVAL_INPUTS,
         survey_table="latex/autogen/table_survey_residuals.tex",
     output:
-        "figures/survey_median_residual_kelley_larger_well_defined_sample_hydra_split.pdf",
+        "figures/survey_median_residual.pdf",
     shell:
-        "{PYTHON} {input.script} --promote"
+        "{PYTHON} {input.script}"
 
 
 rule fig_overlays:
@@ -54,10 +53,12 @@ rule fig_overlays:
     input:
         script="scripts/plot_diameter_correlation.py",
         interacting_ul=INT_UL,
-        hcg_stats="products/hcg_residual_statistics_kelley_larger_sample.json",
+        hcg_stats="products/hcg_residual_statistics.json",
+        amiga_combined="products/amiga_combined_larger_sample.csv",
+        hcg_residuals="products/hcg_residuals_per_galaxy.csv",
     output:
-        correlation="figures/diameter_correlation_kelley_larger_sample.pdf",
-        residuals_vs_d25="figures/diameter_residuals_vs_D25_kelley_larger_sample.pdf",
+        correlation="figures/diameter_correlation.pdf",
+        residuals_vs_d25="figures/diameter_residuals_vs_D25.pdf",
     shell:
         "{PYTHON} {input.script}"
 
@@ -70,4 +71,4 @@ rule fig_pairwise_euler:
     output:
         "figures/pairwise_clique_euler_vertical.pdf",
     shell:
-        "{PYTHON} {input.script} --promote"
+        "{PYTHON} {input.script}"
