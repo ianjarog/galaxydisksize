@@ -99,3 +99,6 @@ latex/reply_to_referee.tex
 latex/cover_letter_referee.tex
 latex/aas_instructions.txt
 latex/compile_referee_docs.sh
+# Online-material package for the A&A submission (uploaded as a dataset;
+# regenerated from the tracked figures).
+online_material/
