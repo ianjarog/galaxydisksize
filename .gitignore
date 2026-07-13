@@ -98,3 +98,4 @@ latex/hi_disk_size_environments_referee_marked.tex
 latex/reply_to_referee.tex
 latex/cover_letter_referee.tex
 latex/aas_instructions.txt
+latex/compile_referee_docs.sh
