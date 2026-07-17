@@ -1193,7 +1193,7 @@ def run_residual_trend_audit(
 
 _TABLE_METHOD_LABELS = {
     "OLS(Y|X)": r"OLS($Y|X$)",
-    "Bayesian": r"\textbf{Bayesian (adopted)}",
+    "Bayesian": r"Bayesian (adopted)",
     "Theil-Sen": r"Theil--Sen",
     "Bisector": r"Bisector",
     "ODR": r"ODR",
@@ -1285,11 +1285,11 @@ def _write_trend_test_latex_fragments(
         r"$p_{\rm S}$ & $\langle \Delta \rangle_{\rm low}$ & $\langle \Delta \rangle_{\rm high}$ \\"
     )
     table_lines.append(r"\midrule")
-    table_lines.append(r"\multicolumn{8}{l}{\emph{Consistent with zero $D_{25}$ trend}}\\")
+    table_lines.append(r"\multicolumn{8}{l}{Consistent with zero $D_{25}$ trend}\\")
     for method, result in passing:
-        table_lines.append(_render_row(method, result, bold=(method == "Bayesian")))
+        table_lines.append(_render_row(method, result, bold=False))
     table_lines.append(r"\midrule")
-    table_lines.append(r"\multicolumn{8}{l}{\emph{Noticeable trend with $D_{25}$; not adopted}}\\")
+    table_lines.append(r"\multicolumn{8}{l}{Noticeable trend with $D_{25}$; not adopted}\\")
     for method, result in failing:
         table_lines.append(_render_row(method, result, bold=False))
     table_lines.append(r"\bottomrule")
