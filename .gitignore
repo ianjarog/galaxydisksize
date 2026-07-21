@@ -91,6 +91,7 @@ data/moment0_maps/**/*_SOFIA_noise.fits
 # Confidential editorial correspondence (kept local, never released).
 latex/referee_report.txt
 latex/editor_layout_corrections.txt
+latex/comments-by-co-author.txt
 
 # Referee-revision working documents (submission-round only, never released):
 # marked-up manuscript, point-by-point reply, and cover letter. The clean
