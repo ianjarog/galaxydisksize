@@ -14,13 +14,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `.env.example`, and `docs/`.
 
 ### Changed
-- `scripts/export_amiga_optical_diameters.py` now reads database connection
-  settings from environment variables (`AMIGA_DB_*`) instead of hard-coded
-  values, and writes to a repository-relative default path.
+- The AMIGA/CIG optical-diameter catalogue is now documented purely as a set of
+  committed machine-readable files (`data/amiga_full_catalogue_logd25.csv`,
+  `data/cig-d25-w-error.txt`). README and `docs/data-and-provenance.md` describe
+  their provenance without referencing any database access.
+
+### Removed
+- `scripts/export_amiga_optical_diameters.py` and the `AMIGA_DB_*` scaffolding in
+  `.env.example`. The workflow never queried the internal IAA AMIGA database — it
+  reads the frozen catalogue files above — so no database connection code, host
+  names, or credentials ship with the public repository.
 
 ### Security
-- Removed a hard-coded database password and a personal absolute path from
-  `scripts/export_amiga_optical_diameters.py`.
+- The public repository no longer contains any database connection code or
+  credential scaffolding (host, user, password, or port).
 
 ## [0.1.0] - 2026-06-27
 

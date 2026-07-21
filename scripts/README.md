@@ -18,7 +18,6 @@ reference.
 | `measure_hi_disk_sizes.py` | ellipse fits, HI diameters/masses, moment-0 postage stamps |
 | `build_hcg_catalogue.py` | `interacting_galaxies_results.csv` |
 | `crossmatch_bok_hyperleda.py`, `crossmatch_reynolds_hyperleda.py` | optical-diameter cross-matches |
-| `export_amiga_optical_diameters.py` | AMIGA `log D_25` catalogue |
 | `flag_beam_upper_limits.py` | augmented upper-limit table (`..._bmaj.csv`) |
 | `image_cutouts.py` | shared optical-cutout / unit-conversion helpers |
 

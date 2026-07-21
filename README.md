@@ -192,12 +192,11 @@ export GALAXYDISKSIZE_FONT_DIR=/usr/share/fonts/tex-gyre   # optional, for the p
 
 ### Credentials
 
-The repository contains no credentials. The only script that needs any —
-`scripts/export_amiga_optical_diameters.py`, a provenance utility that pulled
-`data/amiga_full_catalogue_logd25.csv` from the internal IAA AMIGA database —
-reads its connection settings from environment variables (`AMIGA_DB_*`). Copy
-[`.env.example`](.env.example) to `.env` (git-ignored) and fill in the values if
-you need to re-run it. The reproducible workflow itself needs none of this.
+The repository contains no credentials, and the workflow needs none. It does not
+connect to any database or external service: every input, including the AMIGA/CIG
+optical-diameter catalogue, is provided directly as a committed machine-readable
+file under `data/` (see [Data and provenance](docs/data-and-provenance.md)). Just
+clone and run.
 
 ## Reproducibility and FAIR
 

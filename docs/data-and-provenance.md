@@ -46,9 +46,21 @@ kept as-is in the committed CSVs; a re-run reproduces the diameters but produces
 fresh (stochastic) error bars. The deterministic estimators are bit-identical
 across rebuilds.
 
-## Credentials
+## Optical-diameter catalogue
 
-`scripts/export_amiga_optical_diameters.py` is a provenance utility that pulled
-`data/amiga_full_catalogue_logd25.csv` from the internal IAA AMIGA database. It
-reads its connection settings from environment variables (`AMIGA_DB_*`; see
-[`.env.example`](../.env.example)) and is not part of the reproducible workflow.
+The AMIGA/CIG optical diameters are provided directly as committed,
+machine-readable files — the workflow reads them from disk and **never contacts
+any database**:
+
+- `data/amiga_full_catalogue_logd25.csv` — the full AMIGA/CIG catalogue, one row
+  per galaxy with columns `CIG`, `logd25` (log of the optical D25 diameter),
+  `E_logd25` (its uncertainty), and `PHYS_DISTANCE_decimal` (physical distance).
+- `data/cig-d25-w-error.txt` — the `log D25` and error values the size
+  measurement consumes (`scripts/measure_hi_disk_sizes.py`).
+
+These values were extracted once from the internal AMIGA `CIG_RELEASE_2012`
+optical database (the LEDA `logd25` field, joined to the CIG coordinate and
+`RESULTS_OPT` distance tables) and frozen into the files above. That database is
+an IAA-internal service with no public access, so no credentials, connection
+settings, or query code ship with this repository; the frozen files are the
+authoritative, reproducible input.
