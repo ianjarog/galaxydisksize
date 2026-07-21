@@ -19,8 +19,9 @@ This repository must never contain credentials. In particular:
 
 - No passwords, API keys, personal access tokens, SSH private keys, or
   `.netrc` / `.pypirc` files.
-- Database and service credentials are read from **environment variables** at
-  run time (see `.env.example`); they are never hard-coded.
+- The workflow connects to no database or authenticated service. Any optional
+  configuration (data paths, font locations) is read from **environment
+  variables** at run time (see `.env.example`); nothing is ever hard-coded.
 - `.env` and other local secret files are git-ignored.
 
 If you discover a committed secret:
