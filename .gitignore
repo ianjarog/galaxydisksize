@@ -95,7 +95,7 @@ latex/comments-by-co-author.txt
 
 # Referee-revision working documents (submission-round only, never released):
 # marked-up manuscript, point-by-point reply, and cover letter. The clean
-# revised manuscript (hi_disk_size_environments_referee.tex) IS tracked.
+# accepted manuscript (hi_disk_size_environments.tex) IS tracked.
 latex/hi_disk_size_environments_referee_marked.tex
 latex/reply_to_referee.tex
 latex/reply_to_referee.txt
