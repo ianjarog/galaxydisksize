@@ -2371,15 +2371,15 @@ def main() -> None:
             r"Test & Statistic & $p$-value \\",
             r"\midrule",
             (
-                rf"Mann--Whitney $U$         & ${hcg_stats['mannwhitney_vs_amiga']['statistic']:.0f}$   "
+                rf"Mann-Whitney $U$         & ${hcg_stats['mannwhitney_vs_amiga']['statistic']:.0f}$   "
                 rf"& {_p_cell(hcg_stats['mannwhitney_vs_amiga']['p_value'])} \\"
             ),
             (
-                rf"Kolmogorov--Smirnov       & $D = {hcg_stats['ks_vs_amiga']['statistic']:.3f}$ "
+                rf"Kolmogorov-Smirnov       & $D = {hcg_stats['ks_vs_amiga']['statistic']:.3f}$ "
                 rf"& {_p_cell(hcg_stats['ks_vs_amiga']['p_value'])} \\"
             ),
             (
-                rf"Anderson--Darling          & ${hcg_stats['anderson_darling_vs_amiga']['statistic']:.3f}$ "
+                rf"Anderson-Darling          & ${hcg_stats['anderson_darling_vs_amiga']['statistic']:.3f}$ "
                 rf"& {ad_p_cell} \\"
             ),
             r"\midrule",

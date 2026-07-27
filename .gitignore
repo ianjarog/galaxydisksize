@@ -92,6 +92,10 @@ data/moment0_maps/**/*_SOFIA_noise.fits
 latex/referee_report.txt
 latex/editor_layout_corrections.txt
 latex/comments-by-co-author.txt
+# A&A language-editor's annotated file + its diff (uploaded to Nestor, not released).
+latex/aa61700-26corr.tex
+latex/*corr.tex
+latex/*.diff
 
 # Referee-revision working documents (submission-round only, never released):
 # marked-up manuscript, point-by-point reply, and cover letter. The clean
