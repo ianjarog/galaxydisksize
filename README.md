@@ -88,7 +88,7 @@ import numpy as np
 import galaxydisksize as gds
 
 fit = gds.fit_mass_size(log_hi_mass, log_hi_diameter, seed=42)
-print(fit.slope, fit.intercept, fit.scatter)        # slope ~ 0.5 => constant Sigma_HI
+print(fit.slope, fit.intercept, fit.scatter)  # slope ~ 0.5 => constant Sigma_HI
 
 delta = gds.size_residual(log_hi_diameter, log_d25, slope, intercept)
 km = gds.kaplan_meier_left_censored(delta, is_upper_limit)
